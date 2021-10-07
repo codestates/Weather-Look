@@ -1,22 +1,18 @@
+import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Header, Footer } from "./components/Common";
-import { Main, Mypage } from "./pages";
+import Header from "./components/Common/Header/Header";
+import Footer from "./components/Common/Footer/Footer";
+import Main from "./pages/Main";
+import Mypage from "./pages/Mypage";
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Header />
-      <Switch>
-        <Route path="/">
-          <Main />
-        </Route>
-        <Route path="/mypage">
-          <Mypage />
-        </Route>
-      </Switch>
+      <Main />
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
 
