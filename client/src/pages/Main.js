@@ -1,5 +1,11 @@
 import React from "react";
-
-const Main = (props) => <h1>main</h1>;
+import TodayWeather from "../components/TodayWeather/TodayWeather";
+const Main = (props) => {
+  return (
+    <>
+      <TodayWeather />
+    </>
+  );
+};
 
 export default Main;
