@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import SigninModal, { SiginModal } from "../SigninModal/SiginModal";
+import { SiginModal } from "../SigninModal/SiginModal";
 
 export const HeaderContainer = styled.div`
   display: flex;
