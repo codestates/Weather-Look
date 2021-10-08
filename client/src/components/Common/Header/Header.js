@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import {Link} from 'react-router-dom';
-import SigninModal, { SiginModal } from '../SigninModal/SiginModal'
+import { Link } from "react-router-dom";
+import { SiginModal } from "../SigninModal/SiginModal";
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -32,34 +32,38 @@ export const Button = styled.button`
 `;
 
 const Header = (props) => {
-  const [isOpenModal,setIsOpenModal] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const openModalHandler = () => {
-    setIsOpenModal(!isOpenModal)
-  }
-  {/**const [isLogin, setIsLogin] = useState(false);
+    setIsOpenModal(!isOpenModal);
+  };
+  {
+    /**const [isLogin, setIsLogin] = useState(false);
   
 
   const handleLogin = () => {
     setIsLogin(!isLogin);
     setIsOpenModal(!isOpenModal);
-  } */}
+  } */
+  }
 
   return (
-    
     <HeaderContainer>
       <div className="logo">
         <FontAwesomeIcon icon={faCloudSun} size="3x" color="white" />
         <h1>WeatherLook</h1>
       </div>
       <div className="button">
-        <Link to="/mypage" style={{ textDecoration: 'none' }}>Mypage</Link>
+        <Link to="/mypage" style={{ textDecoration: "none" }}>
+          Mypage
+        </Link>
         <button onClick={openModalHandler}>Login</button>
-        {isOpenModal ? <SiginModal openModalHandler={openModalHandler}/> : null}
-         {/**{isLogin ? <Button>logout</Button> : <Button onClick={handleLogin}>login</Button>}
+        {isOpenModal ? (
+          <SiginModal openModalHandler={openModalHandler} />
+        ) : null}
+        {/**{isLogin ? <Button>logout</Button> : <Button onClick={handleLogin}>login</Button>}
         {isOpenModal ? <SigninModal /> : null} */}
       </div>
     </HeaderContainer>
-    
   );
 };
 
