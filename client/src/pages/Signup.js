@@ -4,6 +4,7 @@ import {
   vaildPassword,
   isMatchPassword,
 } from "../utils/validation";
+import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import {
@@ -27,10 +28,44 @@ export const SignupContainer = styled.div`
   max-width: 100%;
   min-height: 100vh;
 `;
+export const Form = styled.form`
+  padding: 30px 40px;
+`;
+export const Header = styled.h1`
+  background-color: #f7f7f7;
+  padding: 20px;
+  margin: 0 0 10px 0;
+  text-align: center;
+  border-bottom: 2px solid #f0f0f0;
+`;
 export const FormControl = styled.div`
   margin-bottom: 10px;
-  padding-bottom: 10px;
+  padding: 20px 0;
   position: relative;
+  .icon {
+    position: absolute;
+    top: 50px;
+    right: 40px;
+  }
+`;
+export const label = styled.label`
+  display: inline-block;
+  margin-bottom: 5px;
+`;
+export const Input = styled.input`
+  border: 2px solid;
+  border-color: ${(props) => (props.succes ? "green" : "#cc0066")};
+  border-radius: 4px;
+  display: block;
+  width: 90%;
+  font-size: 14px;
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+export const Small = styled.small`
+  position: absolute;
+  bottom: 0;
+  left: 0;
 `;
 
 function Signup() {
@@ -42,16 +77,23 @@ function Signup() {
     gender: "",
   });
   const [isPassword, setIsPassword] = useState(false);
+  const [isCheckPassword, setIsCheckPassword] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isNickname, setNickname] = useState(false);
+  const [isRadio, setIsRadio] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     console.log(isPassword);
-  }, [isPassword]);
+    console.log(isEmail);
+  }, [isPassword, isEmail, isCheckPassword, isNickname, isRadio]);
 
   const handelInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
-    setIsPassword(vaildPassword(userInfo.password));
-    setIsPassword(vaildPassword(userInfo.checkPassword));
+  };
+  const checkSex = () => {
+    setIsRadio(true);
   };
   //email check fucntion
   const checkEmail = () => {
@@ -59,35 +101,52 @@ function Signup() {
       setErrorMsg("모든 항목은 필수입니다.");
     }
     if (!vaildEmail(userInfo.email)) {
+      console.log(userInfo.email);
       setErrorMsg("이메일 형식이 아닙니다.");
-      ////유효성 검사 이메일 형식이 맞는지 , 이미 유효한 이메일인지 확인
+      ////유효성 검사 이메일 형식이 맞는지
     } else {
+      setIsEmail(true);
+      //axios get 요청 이미 유요한 이메일인지 확인
     }
   };
   const checkPassword = () => {
     //2개의 비밀번호가 일치하는지 확인
     const { password, checkPassword } = userInfo;
-    console.log("check", password, checkPassword);
+    console.log(userInfo);
+    console.log("check", password, "check2", checkPassword);
     if (!password || !checkPassword) {
       setErrorMsg("비밀번호를 확인해주세요.");
     }
-
-    setIsPassword(isMatchPassword(password, checkPassword));
+    if (vaildPassword(password)) {
+      setIsPassword(true);
+      setIsCheckPassword(isMatchPassword(password, checkPassword));
+      console.log(isMatchPassword(password, checkPassword));
+    }
   };
 
   const checkNickname = () => {
     //유효성 검사 nickname 형식이 맞는지 , 이미 유효한 nickname 확인
+    if (userInfo.nickname) {
+      setNickname(true);
+    }
   };
 
   const handleSignup = () => {
     const { email, password, checkPassword, nickname, gender } = userInfo;
-    if (!email || !password || !checkPassword || !nickname || !gender) {
+    if (!email || !password || !checkPassword || !nickname || !isRadio) {
       console.log(email, password, checkPassword, nickname, gender);
       setErrorMsg("모든 항목은 필수입니다.");
-    } else {
-      if (isPassword) {
-        //서버에 회원가입 요청 보내기
-      }
+    } else if (
+      isEmail &&
+      isPassword &&
+      isCheckPassword &&
+      isNickname &&
+      isRadio
+    ) {
+      setErrorMsg("회원가입완료");
+      history.push("/");
+      console.log("회원가입완료");
+      //서버에 회원가입 요청 보내기
     }
   };
   //email
@@ -97,49 +156,110 @@ function Signup() {
   return (
     <SignupBody>
       <SignupContainer>
-        <div>
+        <Header>
           <h2>회원가입</h2>
-        </div>
-        <form onSubmit={(e) => e.preventDefault()}>
+        </Header>
+        <Form onSubmit={(e) => e.preventDefault()}>
           <FormControl>
             <label>이메일</label>
-            <input type="email" onChange={handelInputValue("email")} />
-            <FontAwesomeIcon icon={faCheckCircle} size="1x" color="black" />
-            <FontAwesomeIcon
-              icon={faExclamationCircle}
-              size="1x"
-              color="black"
-            />
+            {isEmail ? (
+              <Input succes type="email" onChange={handelInputValue("email")} />
+            ) : (
+              <Input type="email" onChange={handelInputValue("email")} />
+            )}
+            {isEmail ? (
+              <FontAwesomeIcon
+                className="icon"
+                icon={faCheckCircle}
+                size="1x"
+                color="green"
+              />
+            ) : (
+              <FontAwesomeIcon
+                className="icon"
+                icon={faExclamationCircle}
+                size="1x"
+                color="red"
+              />
+            )}
+
             <button onClick={checkEmail}>Check Email</button>
+            <Small>{errorMsg}</Small>
           </FormControl>
           <FormControl>
             <label>비밀번호</label>
-            <input type="password" onChange={handelInputValue("password")} />
+            {isPassword ? (
+              <Input
+                succes
+                type="password"
+                onChange={handelInputValue("password")}
+              />
+            ) : (
+              <Input type="password" onChange={handelInputValue("password")} />
+            )}
+            <Small>{errorMsg}</Small>
           </FormControl>
           <FormControl>
             <label>비밀번호 확인</label>
-            <input
-              type="password"
-              onChange={handelInputValue("checkPassword")}
-            />
+            {isCheckPassword ? (
+              <Input
+                succes
+                type="password"
+                onChange={handelInputValue("checkPassword")}
+              />
+            ) : (
+              <Input
+                type="password"
+                onChange={handelInputValue("checkPassword")}
+              />
+            )}
             <button onClick={checkPassword}>Check password</button>
+            <Small>{errorMsg}</Small>
           </FormControl>
           <FormControl>
             <label>닉네임</label>
-            <input type="password" onChange={handelInputValue("nickname")} />
+            {isNickname ? (
+              <Input
+                succes
+                type="text"
+                onChange={handelInputValue("nickname")}
+              />
+            ) : (
+              <Input type="text" onChange={handelInputValue("nickname")} />
+            )}
+
             <button onClick={checkNickname}>Check Nickname</button>
+            <Small>{errorMsg}</Small>
           </FormControl>
           <FormControl>
             <label>성별</label>
-            <input type="radio" value="Male" name="gender" /> Male
-            <input type="radio" value="Female" name="gender" /> Female
-            <input type="radio" value="Other" name="gender" /> Other
+            <input
+              type="radio"
+              value="Male"
+              name="gender"
+              onChange={checkSex}
+            />{" "}
+            Male
+            <input
+              type="radio"
+              value="Female"
+              name="gender"
+              onChange={checkSex}
+            />{" "}
+            Female
+            <input
+              type="radio"
+              value="Other"
+              name="gender"
+              onChange={checkSex}
+            />{" "}
+            Other
           </FormControl>
           <button type="submit" onClick={handleSignup}>
             회원가입
           </button>
-          <div>{errorMsg}</div>
-        </form>
+          <Small>{errorMsg}</Small>
+        </Form>
       </SignupContainer>
     </SignupBody>
   );

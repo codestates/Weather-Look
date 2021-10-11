@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { isCloseModal, isLogin } from "../actions/index";
 
 function Signin() {
+  const dispatch = useDispatch();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -20,8 +23,11 @@ function Signin() {
       setErrorMsg("이메일과 비밀번호를 확인해주세요");
     } else {
       //axios
+      dispatch(isLogin());
+      dispatch(isCloseModal());
     }
   };
+
   return (
     <div className="loginContainer">
       <div className="inputField">
