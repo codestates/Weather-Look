@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { SiginModal } from "../SigninModal/SiginModal";
 
 export const HeaderContainer = styled.div`
@@ -40,21 +40,19 @@ export const Button = styled.button`
   }
 `;
 
-function Header() {
-  const [isLogin, setIsLogin] = useState(false);
+function Header({ isLogin, setIsLogin }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const history = useHistory();
+  useEffect(() => {}, [isLogin]);
+
   const openModalHandler = () => {
     setIsOpenModal(!isOpenModal);
   };
-  {
-    /**\
-  
 
-  const handleLogin = () => {
+  const handleLoout = () => {
     setIsLogin(!isLogin);
-    setIsOpenModal(!isOpenModal);
-  } */
-  }
+    history.push("/");
+  };
 
   return (
     <HeaderContainer>
@@ -66,23 +64,41 @@ function Header() {
       </div>
       <div className="button">
         {/** mypage를 누르면 로그인상태일때는 마이페이지로 가고 그게 아니면 로그인 모달이 떠야한다.  */}
-        {
+        {isLogin ? (
           <Link
             className="Link"
             to="/mypage"
+            style={{ textDecoration: "none" }}
+          >
+            마이페이지
+          </Link>
+        ) : (
+          <Link
+            className="Link"
+            to="/"
             style={{ textDecoration: "none" }}
             onClick={openModalHandler}
           >
             마이페이지
           </Link>
-        }
+        )}
+        {!isLogin ? (
+          <Button onClick={openModalHandler} className="button">
+            로그인
+          </Button>
+        ) : (
+          <Button onClick={handleLoout} className="button">
+            <Link to="/" />
+            로그아웃
+          </Button>
+        )}
 
-        <Button onClick={openModalHandler} className="button">
-          로그인
-        </Button>
         {isOpenModal && !isLogin ? (
           <>
-            <SiginModal openModalHandler={openModalHandler} />
+            <SiginModal
+              openModalHandler={openModalHandler}
+              setIsLogin={setIsLogin}
+            />
           </>
         ) : null}
         {/**{isLogin ? <Button>logout</Button> : <Button onClick={handleLogin}>login</Button>}

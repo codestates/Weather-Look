@@ -9,6 +9,7 @@ export const ModalContainer = styled.div`
   justify-content: center;
   text-align: center;
   margin-top: 10%;
+  z-index: 1000;
 `;
 
 export const ModalBackdrop = styled.div`
@@ -39,13 +40,13 @@ export const ModalView = styled.div.attrs((props) => ({
   background-color: #dbe2ef;
   margin-left: 30%;
   margin-top: 10%;
-  z-index: 100;
+
   width: 60em;
   height: 40em;
   padding-top: 10px;
 `;
 
-export function SiginModal({ openModalHandler }) {
+export function SiginModal({ openModalHandler, setIsLogin }) {
   const ModalHandler = () => {
     openModalHandler();
   };
@@ -57,7 +58,7 @@ export function SiginModal({ openModalHandler }) {
           <ModalView>
             <div onClick={ModalHandler}>닫기</div>
             <h1>로그인</h1>
-            <Signin />
+            <Signin ModalHandler={ModalHandler} setIsLogin={setIsLogin} />
             <button onClick={ModalHandler}>
               <Link to="/signup" style={{ textDecoration: "none" }}>
                 회원가입하기
