@@ -29,6 +29,8 @@ const ChangeUserInfo = (props) => {
             <input type="radio" name="gender" value="male"></input>
             <stan>여성</stan>
             <input type="radio" name="gender" value="female"></input>
+            <stan>UNISEX</stan>
+            <input type="radio" name="gender" value="unisex"></input>
             <button>확인</button>
             {/**API 메소드 put - 자원 전체 교체/ patch - 자원 일부 교체시 여기에서는 그렴 patch 사용 */}
             <button>회원가입탈퇴</button>
