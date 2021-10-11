@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { isCloseModal, isLogin } from "../actions/index";
 
-function Signin({ ModalHandler, setIsLogin }) {
+function Signin() {
+  const dispatch = useDispatch();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -19,30 +22,12 @@ function Signin({ ModalHandler, setIsLogin }) {
     if (!email || !password) {
       setErrorMsg("이메일과 비밀번호를 확인해주세요");
     } else {
-      //axios 요청 보내기
-      /**const url = `https://localhost:4000/login`;
-    axios
-      .post(
-        url,
-        {
-          email: email,
-          password: password,
-        },
-        { "Content-Type": "application/json", withCredentials: true }
-      )
-      .then((data) => {
-        // console.log(data)
-        //state = { isLogin: true, accessToken: 서버에_요청하여_받은_access_token }
-        this.props.loginHandler(data.data.data.accessToken);
-      }); */
-      //로그인 요청이 ok이면
-      //로그인 상태 -> true, accessToekn 넣어주고
-      //로그인 모달 닫히고 헤더 로그인 -> 로그아웃 으로 change
-      ModalHandler();
-
-      setIsLogin(true);
+      //axios
+      dispatch(isLogin());
+      dispatch(isCloseModal());
     }
   };
+
   return (
     <div className="loginContainer">
       <div className="inputField">

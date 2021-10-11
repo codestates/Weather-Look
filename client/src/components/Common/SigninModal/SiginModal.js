@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Signin from "../../../pages/Signin";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { isCloseModal } from "../../../actions/index";
 
 export const ModalContainer = styled.div`
   // TODO : Modal을 구현하는데 전체적으로 필요한 CSS를 구현합니다.
@@ -46,9 +48,11 @@ export const ModalView = styled.div.attrs((props) => ({
   padding-top: 10px;
 `;
 
-export function SiginModal({ openModalHandler, setIsLogin }) {
+export function SigninModal() {
+  const dispatch = useDispatch();
+
   const ModalHandler = () => {
-    openModalHandler();
+    dispatch(isCloseModal());
   };
 
   return (
@@ -71,4 +75,4 @@ export function SiginModal({ openModalHandler, setIsLogin }) {
   );
 }
 
-export default SiginModal;
+export default SigninModal;
