@@ -20,7 +20,7 @@ export const InputHolder = styled.div`
   margin: 0 auto;
 `;
 export const Input = styled.input`
-  background-color: aliceblue;
+  background-color: dbe2ef;
   outline: 0;
   border: 0;
   border-radius: 50px;
@@ -32,17 +32,26 @@ export const Input = styled.input`
   font-weight: bold;
   font-size: 1.2rem;
   margin-top: 30px;
+  ::placeholder {
+    color: grey;
+    font-size: 16px;
+  }
 `;
 export const Button = styled.button`
-  background-color: darkgrey;
+  background-color: white;
+  color: #ff9e0f;
   position: absolute;
   border-radius: 30px;
-  border: transparent;
+  border: 2px solid #ff9e0f;
   width: 4em;
   height: 4em;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
+  &:hover {
+    background-color: #ff9e0f;
+    color: white;
+  }
 `;
 const WeatherSearch = (props) => {
   const state = useSelector((state) => state.userReducer);
@@ -89,11 +98,11 @@ const WeatherSearch = (props) => {
 
           {state.login ? (
             <Button onClick={getData}>
-              <FontAwesomeIcon icon={faSearch} size="2x" color="white" />
+              <FontAwesomeIcon icon={faSearch} size="2x" />
             </Button>
           ) : (
             <Button onClick={openModalHandler}>
-              <FontAwesomeIcon icon={faSearch} size="2x" color="white" />
+              <FontAwesomeIcon icon={faSearch} size="2x" />
             </Button>
           )}
         </InputHolder>

@@ -164,7 +164,7 @@ function Signup() {
     <SignupBody>
       <SignupContainer>
         <Header>
-          <h2>회원가입</h2>
+          <h3>회원가입</h3>
         </Header>
         <Form onSubmit={(e) => e.preventDefault()}>
           <FormControl>

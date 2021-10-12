@@ -1,9 +1,34 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
 import { isCloseModal, isLogin } from "../actions/index";
 
 axios.defaults.withCredentials = true;
+
+export const LoginContainer = styled.div`
+  width: 500px;
+  margin: 0 auto;
+`;
+
+export const Input = styled.input`
+  margin: 20px 0 20px 0;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  padding: 15px;
+  width: 93%;
+`;
+
+export const Button = styled.button`
+  background-color: ${(props) => props.color || "#ff9e0f"};
+  border: 1px solid #ddd;
+  color: #ffffff;
+  padding: 18px;
+  margin: 30px 0 10px;
+  width: 100%;
+  cursor: pointer;
+`;
 
 function Signin() {
   const dispatch = useDispatch();
@@ -51,22 +76,27 @@ function Signin() {
   };
 
   return (
-    <div className="loginContainer">
+    <LoginContainer>
       <div className="inputField">
         <div>Email</div>
-        <input
+        <Input
           name="user-email"
           onChange={handleInputValue("email")}
           type="email"
         />
       </div>
-      <div>password</div>
-      <input type="password" onChange={handleInputValue("password")} />
-      <button className="loginBtn" type="submit" onClick={loginRequestHandler}>
-        로그인
-      </button>
+      <div>Password</div>
+      <Input type="password" onChange={handleInputValue("password")} />
       <div className="alert">{errorMsg}</div>
-    </div>
+      <Button type="submit" onClick={loginRequestHandler}>
+        로그인
+      </Button>
+      <Button color="#E7EDF6" onClick={dispatch(isCloseModal)}>
+        <Link to="/signup" style={{ textDecoration: "none" }}>
+          회원가입하기
+        </Link>
+      </Button>
+    </LoginContainer>
   );
 }
 

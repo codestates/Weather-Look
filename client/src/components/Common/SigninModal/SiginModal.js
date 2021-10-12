@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import Signin from "../../../pages/Signin";
-import { Link } from "react-router-dom";
+import Signin, { Button } from "../../../pages/Signin";
 import { useDispatch } from "react-redux";
 import { isCloseModal } from "../../../actions/index";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export const ModalContainer = styled.div`
   // TODO : Modal을 구현하는데 전체적으로 필요한 CSS를 구현합니다.
@@ -25,13 +26,18 @@ export const ModalBackdrop = styled.div`
 `;
 
 export const ModalBtn = styled.button`
-  background-color: #4000c7;
-  text-decoration: none;
-  border: none;
-  padding: 20px;
+  background-color: #ff9e0f;
   color: white;
-  border-radius: 30px;
+  text-decoration: none;
+  border: 1px solid #ff9e0f;
+  padding: 5px 8px;
+  //color: white;
+  border-radius: 100px;
   cursor: grab;
+  &:hover {
+    background-color: white;
+    color: #ff9e0f;
+  }
 `;
 
 export const ModalView = styled.div.attrs((props) => ({
@@ -39,10 +45,11 @@ export const ModalView = styled.div.attrs((props) => ({
   role: "dialog",
 }))`
   // TODO : Modal창 CSS를 구현합니다.
+  border-radius: 20px;
   background-color: #dbe2ef;
   margin-left: 30%;
   margin-top: 10%;
-
+  z-index: 100;
   width: 60em;
   height: 40em;
   padding-top: 10px;
@@ -60,14 +67,11 @@ export function SigninModal() {
       <ModalContainer>
         <ModalBackdrop>
           <ModalView>
-            <div onClick={ModalHandler}>닫기</div>
+            <ModalBtn onClick={ModalHandler}>
+              <FontAwesomeIcon icon={faTimes} size="1x" />
+            </ModalBtn>
             <h1>로그인</h1>
             <Signin />
-            <button onClick={ModalHandler}>
-              <Link to="/signup" style={{ textDecoration: "none" }}>
-                회원가입하기
-              </Link>
-            </button>
           </ModalView>
         </ModalBackdrop>
       </ModalContainer>
