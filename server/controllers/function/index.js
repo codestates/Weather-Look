@@ -16,4 +16,11 @@ module.exports = {
     //Lax: get method에 대해서만 쿠키를 전송
     res.json({ message: "ok" });
   },
+  checkToken: (token, key) => {
+    try {
+      return verify(token, key);
+    } catch {
+      return null;
+    }
+  },
 };
