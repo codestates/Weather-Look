@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { isCloseModal, isLogin } from "../actions/index";
@@ -25,6 +26,16 @@ function Signin() {
       //axios
       dispatch(isLogin());
       dispatch(isCloseModal());
+      axios
+        .post(
+          "https://www.weatherLooks.com/user/login",
+          {
+            email,
+            password,
+          },
+          { "Content-Type": "application/json" }
+        )
+        .then((res) => console.log(res));
     }
   };
 
