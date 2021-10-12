@@ -11,13 +11,15 @@ import styled from "styled-components";
 import main from "../src/weatherBackground/main.jpg";
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   background-image: url(${main});
   background-color: ivory;
   background-size: cover;
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 `;
 
 function App() {

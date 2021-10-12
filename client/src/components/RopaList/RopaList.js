@@ -1,6 +1,9 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useReducer } from "react";
 import Ropa from "../Ropa/Ropa";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import userReducer from "../../reducers/userReducer";
+import { isLogin, IS_LOGIN } from "../../actions";
 
 export const Title = styled.h1`
   text-align: center;
@@ -14,6 +17,16 @@ export const RopaContainer = styled.div`
   width: 1280px;
   margin: 0 auto;
   height: 400px;
+`;
+export const BlurRopaContainer = styled.div`
+  display: table;
+  overflow: hidden;
+  position: relative;
+  width: 1280px;
+  margin: 0 auto;
+  height: 400px;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
 `;
 export const Slides = styled.ul`
   //display: table-cell;
@@ -47,6 +60,7 @@ export const Control = styled.button`
 `;
 const TOTAL_SLIDES = 7;
 const RopaList = ({ items }) => {
+  const state = useSelector((state) => state.userReducer);
   const [curSlide, setCurSlide] = useState(0);
   const slideRef = useRef(null);
   const nextSlide = () => {
@@ -72,13 +86,23 @@ const RopaList = ({ items }) => {
   return (
     <>
       <Title>오늘의 추천 옷</Title>
-      <RopaContainer>
-        <Slides className="slides" ref={slideRef}>
-          {items.map((item, idx) => (
-            <Ropa item={item} key={idx} />
-          ))}
-        </Slides>
-      </RopaContainer>
+      {state.login ? (
+        <RopaContainer>
+          <Slides className="slides" ref={slideRef}>
+            {items.map((item, idx) => (
+              <Ropa item={item} key={idx} />
+            ))}
+          </Slides>
+        </RopaContainer>
+      ) : (
+        <BlurRopaContainer>
+          <Slides className="slides" ref={slideRef}>
+            {items.map((item, idx) => (
+              <Ropa item={item} key={idx} />
+            ))}
+          </Slides>
+        </BlurRopaContainer>
+      )}
       <Controls>
         <Control className="prev" onClick={prevSlide}>
           prev
