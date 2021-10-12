@@ -1,6 +1,9 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { isCloseModal, isLogin } from "../actions/index";
+
+axios.defaults.withCredentials = true;
 
 function Signin() {
   const dispatch = useDispatch();
@@ -23,6 +26,15 @@ function Signin() {
       setErrorMsg("이메일과 비밀번호를 확인해주세요");
     } else {
       //axios
+      axios
+        .post(
+          "https://localhost:4000/user/login",
+          { email, password },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          console.log("login", res);
+        });
       dispatch(isLogin());
       dispatch(isCloseModal());
     }
