@@ -62,7 +62,7 @@ export function SigninModal() {
           <ModalView>
             <div onClick={ModalHandler}>닫기</div>
             <h1>로그인</h1>
-            <Signin ModalHandler={ModalHandler} setIsLogin={setIsLogin} />
+            <Signin />
             <button onClick={ModalHandler}>
               <Link to="/signup" style={{ textDecoration: "none" }}>
                 회원가입하기
