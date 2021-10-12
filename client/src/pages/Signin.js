@@ -42,6 +42,9 @@ function Signin() {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
     console.log("inputvalue", loginInfo);
   };
+  const closeModalHandler = () => {
+    dispatch(isCloseModal());
+  };
   const loginRequestHandler = () => {
     //입력한 값이 다 채워져있는지 확인 후
     //입력받은 로그인정보를 서버에 요청
@@ -55,23 +58,13 @@ function Signin() {
         .post(
           "https://localhost:4000/user/login",
           { email, password },
-          { withCredentials: true }
+          { withCredentials: true, "Content-Type": "application/json" }
         )
         .then((res) => {
           console.log("login", res);
         });
       dispatch(isLogin());
       dispatch(isCloseModal());
-      axios
-        .post(
-          "https://www.weatherLooks.com/user/login",
-          {
-            email,
-            password,
-          },
-          { "Content-Type": "application/json" }
-        )
-        .then((res) => console.log(res));
     }
   };
 
@@ -91,7 +84,7 @@ function Signin() {
       <Button type="submit" onClick={loginRequestHandler}>
         로그인
       </Button>
-      <Button color="#E7EDF6" onClick={dispatch(isCloseModal)}>
+      <Button color="#E7EDF6" onClick={closeModalHandler}>
         <Link to="/signup" style={{ textDecoration: "none" }}>
           회원가입하기
         </Link>
