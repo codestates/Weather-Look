@@ -37,6 +37,16 @@ function Signin() {
         });
       dispatch(isLogin());
       dispatch(isCloseModal());
+      axios
+        .post(
+          "https://www.weatherLooks.com/user/login",
+          {
+            email,
+            password,
+          },
+          { "Content-Type": "application/json" }
+        )
+        .then((res) => console.log(res));
     }
   };
 

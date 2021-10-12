@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     const newAccToken = signAccessToken(newUserId.dataValues);
     res.set(
       "Set-Cookie",
-      `jwt = ${newAccToken}; Domain = ''; Path = /user/signup; SameSite; Secure; HttpOnly = true;`
+      `jwt = ${newAccToken}; Domain = "https://localhost:4000"; Path = /user/signup; SameSite; Secure; HttpOnly = true;`
     );
     res.status(201).json({ message: "created :)" });
   } else {

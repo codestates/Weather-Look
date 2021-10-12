@@ -8,14 +8,16 @@ import Mypage from "./pages/Mypage";
 import Signup from "./pages/Signup";
 import ChangeUserInfo from "./pages/ChangeUserInfo";
 import styled from "styled-components";
-import rainbow from "../src/weatherBackground/rainbow.jpg";
+import main from "../src/weatherBackground/main.jpg";
 
 export const Container = styled.div`
-  background-image: url(${rainbow});
+  background-image: url(${main});
   background-color: ivory;
   background-size: cover;
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 `;
 
 function App() {

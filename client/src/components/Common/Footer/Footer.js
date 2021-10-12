@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 export const FooterContainer = styled.footer`
-  position: fixed;
+  position: relative;
   padding-left: 50px;
-  padding-top: 15px;
+  padding-top: 10px;
   padding-bottom: 10px;
   background-color: white;
   bottom: 0;
@@ -16,14 +16,14 @@ export const Team = styled.div`
   color: grey;
 `;
 export const Call = styled.div`
-  font-size: 2rem;
+  font-size: 1.7rem;
 `;
 
 const Footer = (props) => {
   return (
     <FooterContainer>
       <div>
-        <Title>고객센터 > </Title>
+        <Title>고객센터</Title>
         <Call>070-000-0000</Call>
         <div>평일 09:00 ~ 18:00 (주말 & 공휴일 제외)</div>
       </div>
