@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { sign, verify } = require("jsonwebtoken");
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
 
 module.exports = {
   signAccessToken: (data) => {
@@ -15,14 +15,5 @@ module.exports = {
     );
     //Lax: get method에 대해서만 쿠키를 전송
     res.json({ message: "ok" });
-  },
-  getWeatherApi: (city, key) => {
-    try {
-      return fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${key}&units=metric`
-      );
-    } catch {
-      return null;
-    }
   },
 };
