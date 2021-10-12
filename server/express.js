@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const app = express();
 const fs = require("fs");
 const https = require("https");
+const controllers = require("./controllers");
 
 app.use(
   cors({

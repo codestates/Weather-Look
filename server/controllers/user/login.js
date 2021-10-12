@@ -1,4 +1,4 @@
-const { user } = require("../models");
+const { user } = require("../../models");
 const { signAccessToken, sendAccessToken } = require("../function/index");
 
 module.exports = async (req, res) => {

@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { user } = require("../../models");
 const { getWeatherApi } = require("../function/index");
 
 //weather api를 받아 지역별, 온도별로 온도를 응답 + 아이콘 추가
@@ -9,8 +8,20 @@ const { getWeatherApi } = require("../function/index");
 module.exports = {
   getWeather: async (req, res) => {
     const WEATHER_API_KEY = process.env.WEATHER_API_KEY;
-    const api = await getWeatherApi(cityname, WEATHER_API_KEY);
+    const getWeatherApi = async(cityid, cityname);
   },
 };
 
-//서울,인천,수원,아산,천안,부산,광주,
+//서울,인천,수원,부산,광주
+
+/*
+getWeatherApi: (cityname, key) => {
+    try {
+      return fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=${key}&units=metric`
+      );
+    } catch {
+      return null;
+    }
+  },
+*/
