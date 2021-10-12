@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.post("/user/login", controllers.login);
 app.post("/user/logout", controllers.logout);
-app.post("user/signup", controllers.signup);
+app.post("/user/signup", controllers.signup);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
