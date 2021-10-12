@@ -11,6 +11,9 @@ import {
   faCheckCircle,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 export const SignupBody = styled.div`
   background-color: #dbe2ef;
@@ -105,15 +108,19 @@ function Signup() {
       setErrorMsg("이메일 형식이 아닙니다.");
       ////유효성 검사 이메일 형식이 맞는지
     } else {
-      setIsEmail(true);
       //axios get 요청 이미 유요한 이메일인지 확인
+      setIsEmail(true);
+      delete userInfo.checkPassword;
+
+      axios.post("https://localhost:4000/signup", { userInfo }).then((res) => {
+        console.log("signup", res.data);
+      });
     }
   };
   const checkPassword = () => {
     //2개의 비밀번호가 일치하는지 확인
     const { password, checkPassword } = userInfo;
-    console.log(userInfo);
-    console.log("check", password, "check2", checkPassword);
+
     if (!password || !checkPassword) {
       setErrorMsg("비밀번호를 확인해주세요.");
     }
@@ -134,7 +141,7 @@ function Signup() {
   const handleSignup = () => {
     const { email, password, checkPassword, nickname, gender } = userInfo;
     if (!email || !password || !checkPassword || !nickname || !isRadio) {
-      console.log(email, password, checkPassword, nickname, gender);
+      //console.log(email, password, checkPassword, nickname, gender);
       setErrorMsg("모든 항목은 필수입니다.");
     } else if (
       isEmail &&
@@ -144,7 +151,7 @@ function Signup() {
       isRadio
     ) {
       setErrorMsg("회원가입완료");
-      history.push("/");
+      //history.push("/");
       console.log("회원가입완료");
       //서버에 회원가입 요청 보내기
     }
@@ -157,7 +164,7 @@ function Signup() {
     <SignupBody>
       <SignupContainer>
         <Header>
-          <h2>회원가입</h2>
+          <h3>회원가입</h3>
         </Header>
         <Form onSubmit={(e) => e.preventDefault()}>
           <FormControl>
