@@ -9,9 +9,8 @@ import SigninModal from "../Common/SigninModal/SiginModal";
 import { isOpenModal } from "../../actions";
 
 export const InputWrapper = styled.div`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 20%;
+  //position: absolute;
+  //transform: translate(-50%, -50%);
   left: 50%;
 `;
 export const InputHolder = styled.div`
