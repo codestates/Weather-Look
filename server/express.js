@@ -22,6 +22,11 @@ app.post("/user/login", controllers.login);
 app.post("/user/logout", controllers.logout);
 app.post("/user/signup", controllers.signup);
 
+app.post("/user/signout", controllers.signout);
+// app.post("/user/mypage", controllers.mypage);
+// app.post("/user/inform", controllers.inform);
+
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
