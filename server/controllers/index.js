@@ -8,6 +8,7 @@ module.exports = {
   auth: require("../controllers/user/auth"),
   validEmail: require("../controllers/user/validEmail"),
   checkNickname: require("../controllers/user/checkNickname"),
+
 };
 
 // const express = require("express");
