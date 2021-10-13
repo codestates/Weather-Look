@@ -1,15 +1,14 @@
 module.exports = {
-
   login: require("../controllers/user/login"),
   logout: require("../controllers/user/logout"),
   signup: require("../controllers/user/signup"),
   signout: require("../controllers/user/signout"),
   inform: require("../controllers/user/inform"),
   mypage: require("../controllers/user/mypage"),
-  auth: require("../controllers/user/mypage"),
+  auth: require("../controllers/user/auth"),
   validEmail: require("../controllers/user/validEmail"),
-  checkNickname: require("../controllersuser/checkNickname"),
-
+  checkNickname: require("../controllers/user/checkNickname"),
+  checkPassword: require("../controllers/user/checkPassword"),
 };
 
 // const express = require("express");

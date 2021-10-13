@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.post("/user/login", controllers.login);
 app.post("/user/logout", controllers.logout);
 app.post("/user/signup", controllers.signup);
-
+app.post("/user/mypage/checkPassword", controllers.checkPassword);
 app.post("/user/signup/validEmail", controllers.validEmail);
 app.post("/user/signup/checkNickname", controllers.checkNickname);
 app.get("/user/auth", controllers.auth);

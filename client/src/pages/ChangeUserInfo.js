@@ -1,7 +1,36 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const ChangeUserInfo = (props) => {
   const [checkPassword, setCheckPassword] = useState(false);
+  const [passwordInfo, setPasswordInfo] = useState("");
+  const [errMsg, setErrMsg] = useState("비밀번호 확인후 수정 가능합니다.");
+  const state = useSelector((state) => state.userReducer);
+  //console.log(state);
+  const { email } = state.success;
+
+  const handleInputValue = (e) => {
+    setPasswordInfo(e.target.value);
+  };
+  const handleCheckPassword = () => {
+    axios
+      .post(
+        "https://localhost:4000/user/mypage/checkPassword",
+        { email: email, password: passwordInfo },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        if (res.data.message === "ok") {
+          setCheckPassword(true);
+        } else {
+          setErrMsg("비밀번호를 다시 확인해주세요.");
+        }
+      });
+  };
+
   return (
     <div>
       <h1>회원정보수정</h1>
@@ -9,8 +38,9 @@ const ChangeUserInfo = (props) => {
         {!checkPassword ? (
           <div>
             <div>기존 비밀번호</div>
-            <input type="password"></input>
-            <button>비밀번호 확인</button>
+            <input type="password" onChange={handleInputValue}></input>
+            <button onClick={handleCheckPassword}>비밀번호 확인</button>
+            <div>{errMsg}</div>
             {/**axios 비밀번호 일치하는지 여부 확인 => 응답으로 일치하는 것을 확인하며 변경할 수 있는 창 보여주기 */}
           </div>
         ) : (
