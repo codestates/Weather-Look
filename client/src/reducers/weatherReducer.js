@@ -1,4 +1,4 @@
-import { WEATHER_SUCCESS, WEATHER_FAILURE } from "../actions/index";
+import { WEATHER_SUCCESS } from "../actions/index";
 import { weatherState } from "./initialState";
 
 const weatherReducer = (state = weatherState, action) => {

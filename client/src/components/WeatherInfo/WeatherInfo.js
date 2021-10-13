@@ -21,27 +21,31 @@ export const WeatherHolder = styled.div`
 `;
 
 const WeatherInfo = () => {
-  const state = useSelector((state) => state.weatherReducer);
-  const state1 = useSelector((state) => state.userReducer);
+  const state = useSelector((state) => state.userReducer);
+
   useEffect(() => {
-    console.log(state1);
+    console.log(state);
   }, []);
-  console.log("data---", state);
+  console.log("data---", state.weatherOk);
   return (
     <WeatherContainer>
-      {/**<Title>오늘의 {state.data.name} 날씨</Title>
+      <Title>오늘의 {state.weatherOk.name} 날씨</Title>
       <WeatherHolder>
         <img
-          src={`http://openweathermap.org/img/w/${state.data.weather[0].icon}.png`}
+          src={`http://openweathermap.org/img/w/${state.weatherOk.weather[0].icon}.png`}
           alt="backgroud"
         />
 
-        <div>날씨: {state.data.weather[0].main}</div>
-
-        <div>온도: {(state.data.main.temp - 273.15).toFixed(1)}°</div>
-        <div>최고기온: {(state.data.main.temp_max - 273.15).toFixed(1)}°</div>
-        <div>최저기온: {(state.data.main.temp_min - 273.15).toFixed(1)}°</div>
-      </WeatherHolder> */}
+        <div>
+          날씨:
+          {
+            //state.weatherOk.weather[0].main}
+          }
+        </div>
+        <div>온도: {state.weatherOk.main.temp.toFixed(1)}°</div>
+        <div>최고기온: {state.weatherOk.main.temp_max.toFixed(1)}°</div>
+        <div>최저기온: {state.weatherOk.main.temp_min.toFixed(1)}°</div>
+      </WeatherHolder>
     </WeatherContainer>
   );
 };

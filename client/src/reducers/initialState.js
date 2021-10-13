@@ -4,6 +4,7 @@ export const initialState = {
   signUpInfo: {},
   openModal: false,
   success: false,
+  weatherOk: false,
 };
 export const weatherState = {
   weather: {},
