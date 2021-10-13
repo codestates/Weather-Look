@@ -3,6 +3,7 @@ import axios from "axios";
 export const IS_LOGIN = "IS_LOGIN";
 export const IS_LOGOUT = "IS_LOGOUT";
 export const ADD_USER_INFO = "ADD_USER_INFO";
+export const LOGOUT_USERINFO = "LOGOUT_USERINFO";
 export const ADD_SIGNUP_INFO = "ADD_SIGNUP_INFO";
 export const IS_OPEN_MODAL = "IS_OPEN_MODAL";
 export const IS_CLOSE_MODAL = "IS_CLOSE_MODAL";
@@ -23,6 +24,12 @@ export const isLogout = () => {
 export const addUserInfo = (userInfo) => {
   return {
     type: ADD_USER_INFO,
+    payload: userInfo,
+  };
+};
+export const logoutUserInfo = (userInfo) => {
+  return {
+    type: LOGOUT_USERINFO,
     payload: userInfo,
   };
 };

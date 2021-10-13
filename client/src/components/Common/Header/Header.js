@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
@@ -5,7 +6,12 @@ import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { SigninModal } from "../SigninModal/SiginModal";
 import { useSelector, useDispatch } from "react-redux";
-import { isLogin, isLogout, isOpenModal } from "../../../actions";
+import {
+  isLogin,
+  isLogout,
+  isOpenModal,
+  logoutUserInfo,
+} from "../../../actions";
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -55,8 +61,11 @@ function Header() {
   };
 
   const handleLoout = () => {
-    dispatch(isLogout());
-    history.push("/");
+    axios.post("https://localhost:4000/user/logout").then((res) => {
+      dispatch(logoutUserInfo);
+      dispatch(isLogout());
+      history.push("/");
+    });
   };
 
   return (
