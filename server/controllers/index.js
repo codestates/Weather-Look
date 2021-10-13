@@ -5,9 +5,10 @@ module.exports = {
   signout: require("../controllers/user/signout"),
   inform: require("../controllers/user/inform"),
   mypage: require("../controllers/user/mypage"),
-  auth: require("../controllers/user/mypage"),
+  auth: require("../controllers/user/auth"),
   validEmail: require("../controllers/user/validEmail"),
-  checkNickname: require("../controllersuser/checkNickname"),
+  checkNickname: require("../controllers/user/checkNickname"),
+
 };
 
 // const express = require("express");
