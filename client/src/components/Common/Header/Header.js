@@ -13,8 +13,12 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 4rem;
-  padding: 0.5em 1em;
-  border-bottom: 3px solid white;
+  padding-right: 300px;
+  padding-left: 350px;
+  padding-top: 20px;
+
+  //padding: 0.5em 1em;
+  //border-bottom: 3px solid white;
   .logo {
     display: flex;
     align-items: center;
@@ -22,6 +26,7 @@ export const HeaderContainer = styled.div`
   }
   .h1 {
     color: white;
+    margin: 15px;
   }
   .Link {
     &:hover {
@@ -32,7 +37,8 @@ export const HeaderContainer = styled.div`
 `;
 
 export const Button = styled.button`
-  padding-right: 2em;
+  padding-left: 4em;
+  padding-right: 3.5em;
   background-color: transparent;
   border: none;
   font-size: 16px;

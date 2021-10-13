@@ -1,7 +1,7 @@
 const { user } = require("../../models");
 
 module.exports = async (req, res) => {
-  console.log("req", req.body);
+  console.log("NIckreq", req.body);
   const { nickname } = req.body;
 
   const userInfo = await user.findOne({
