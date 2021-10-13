@@ -6,8 +6,9 @@ const app = express();
 const fs = require("fs");
 const https = require("https");
 const controllers = require("./controllers");
-const request = require("request");
 const bodyParser = require("body-parser");
+/*const request = require("request");
+
 
 app.use(express.static("public")); //정적페이지를 렌더링할때 루트디렉토리 역할을 한다
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -76,7 +77,7 @@ app.post("/", function (req, res) {
     }
   });
 });
-
+*/
 app.use(
   cors({
     origin: ["https://localhost:3000"],

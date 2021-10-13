@@ -7,9 +7,10 @@ import Footer from "./components/Common/Footer/Footer";
 import Main from "./pages/Main";
 import Mypage from "./pages/Mypage";
 import Signup from "./pages/Signup";
+import ChangeCheckPwd from "./pages/ChangeCheckPwd";
 import ChangeUserInfo from "./pages/ChangeUserInfo";
 import styled from "styled-components";
-import main from "../src/weatherBackground/main.jpg";
+import boo from "../src/weatherBackground/boo.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { isLogin, isLogout, isCloseModal } from "../src/actions/index";
 import axios from "axios";
@@ -17,7 +18,7 @@ import axios from "axios";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-image: url(${main});
+  background-image: url(${boo});
   background-color: ivory;
   background-size: cover;
   width: 100vw;
@@ -55,7 +56,10 @@ function App() {
             <Route path="/signup">
               <Signup />
             </Route>
-            <Route path="/mypage/informationchange">
+            <Route path="/mypage/passwordCheck">
+              <ChangeCheckPwd />
+            </Route>
+            <Route path="/mypage/informationChange">
               <ChangeUserInfo />
             </Route>
           </Switch>
