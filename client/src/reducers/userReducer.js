@@ -7,6 +7,7 @@ import {
   IS_OPEN_MODAL,
   IS_CLOSE_MODAL,
   AUTH_SUCCESS,
+  WEATHER_SUCCESS,
 } from "../actions/index";
 import { initialState } from "./initialState";
 
@@ -36,6 +37,9 @@ const userReducer = (state = initialState, action) => {
       break;
     case AUTH_SUCCESS:
       return { ...newState, success: action.payload };
+      break;
+    case WEATHER_SUCCESS:
+      return { ...newState, weatherOk: action.payload };
       break;
 
     default:
