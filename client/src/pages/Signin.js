@@ -65,7 +65,7 @@ function Signin() {
   const loginRequestHandler = () => {
     //입력한 값이 다 채워져있는지 확인 후
     //입력받은 로그인정보를 서버에 요청
-    //console.log("loginInfo", loginInfo);
+
     const { email, password } = loginInfo;
 
     if (!email || !password) {
