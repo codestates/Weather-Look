@@ -5,7 +5,7 @@ const { sign, verify } = require("jsonwebtoken");
 module.exports = {
   signAccessToken: (data) => {
     delete data.password;
-    const accessToken = sign(data, process.env.ACCESS_SECRET);
+    const accessToken = sign(data, process.env.ACCESS_SECRET); //만료기간 설정을해야할까?
     return accessToken;
   },
   sendAccessToken: (res, accessToken) => {
@@ -27,6 +27,15 @@ module.exports = {
       return null;
     } else {
       return verify(jwt, process.env.ACCESS_SECRET);
+    }
+  },
+  getWeatherApi: (cityname, key) => {
+    try {
+      return fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=${key}&units=metric`
+      );
+    } catch {
+      return null;
     }
   },
 };

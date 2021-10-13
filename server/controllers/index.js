@@ -1,14 +1,24 @@
 module.exports = {
-  auth: require("./user/auth"),
-  login: require("./user/login"),
-  logout: require("./user/logout"),
-  signup: require("./user/signup"),
-  validEmail: require("./user/validEmail"),
-  checkNickname: require("./user/checkNickname"),
+
+  login: require("../controllers/user/login"),
+  logout: require("../controllers/user/logout"),
+  signup: require("../controllers/user/signup"),
+  signout: require("../controllers/user/signout"),
+  inform: require("../controllers/user/inform"),
+  mypage: require("../controllers/user/mypage"),
+  auth: require("../controllers/user/mypage"),
+  validEmail: require("../controllers/user/validEmail"),
+  checkNickname: require("../controllersuser/checkNickname"),
+
 };
 
 // const express = require("express");
 // const router = express.Router();
+// const cors = require("cors");
+// router.get("/", cors(), (req, res) => {
+//   res.send("cors!");
+// });
+
 // const { login } = require("../controllers/user");
 
 // //POST login

@@ -2,6 +2,7 @@ import {
   IS_LOGIN,
   IS_LOGOUT,
   ADD_USER_INFO,
+  LOGOUT_USERINFO,
   ADD_SIGNUP_INFO,
   IS_OPEN_MODAL,
   IS_CLOSE_MODAL,
@@ -20,6 +21,9 @@ const userReducer = (state = initialState, action) => {
       break;
     case ADD_USER_INFO:
       return { ...newState, userInfo: action.payload };
+      break;
+    case LOGOUT_USERINFO:
+      return { ...newState, userInfo: null };
       break;
     case ADD_SIGNUP_INFO:
       return { ...newState, signupInfo: action.payload };

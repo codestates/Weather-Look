@@ -59,9 +59,9 @@ function App() {
               <ChangeUserInfo />
             </Route>
           </Switch>
-          <Footer />
         </BrowserRouter>
       </Container>
+      <Footer />
     </div>
   );
 }
