@@ -1,7 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+
+
+axios.defaults.withCredentials = true;
+
 import styled from "styled-components";
+
 
 export const MypageBody = styled.div`
   background-color: #dbe2ef;
@@ -81,6 +86,7 @@ export const Btn = styled.button`
   }
 `;
 const ChangeUserInfo = (props) => {
+
   const state = useSelector((state) => state.userReducer);
   const { email } = state.success;
   const [checkPassword, setCheckPassword] = useState(false); //api요청보내면 이제 맞다 확인 후 변경될 수 있는 state
@@ -114,6 +120,7 @@ const ChangeUserInfo = (props) => {
     setPasswordInfo(e.target.value);
   };
   const handleCheckPw = () => {
+
     axios
       .post(
         "https://localhost:4000/user/mypage/checkPassword",
@@ -124,6 +131,7 @@ const ChangeUserInfo = (props) => {
         if (res.data.message === "ok") {
           setCheckPassword(true);
         } else {
+
           setErrorMsg("비밀번호를 다시 확인해주세요.");
         }
       });
@@ -204,6 +212,7 @@ const ChangeUserInfo = (props) => {
         </Form>
       </MypageContainer>
     </MypageBody>
+
   );
 };
 

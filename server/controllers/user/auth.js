@@ -2,6 +2,7 @@ const { user } = require("../../models");
 const { isAuthorized } = require("../function/index");
 
 module.exports = async (req, res) => {
+  console.log("auth-req", req.cookies);
   //jwt확인
   const accessTokenData = isAuthorized(req);
   //확인된게 없다면
