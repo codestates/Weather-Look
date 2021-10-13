@@ -12,10 +12,12 @@ module.exports = async (req, res) => {
   // if (!data) {
   //   return res.status(401).json({ mesaage: "Invalid access token" });
   // }
-  const { email } = req.body.email;
+  console.log("out-----", req.body);
+  const { email } = req.body;
   const deleteUser = await user.findOne({
-    where: { eamil: email },
+    where: { email },
   });
+  console.log("out-----", deleteUser);
   if (!deleteUser) {
     return res.status(404).json({ message: "Unauthorized" });
   }

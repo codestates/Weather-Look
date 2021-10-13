@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+import { logoutUserInfo } from "../actions/index";
 
 axios.defaults.withCredentials = true;
 
@@ -84,6 +86,8 @@ export const Btn = styled.button`
 `;
 const ChangeUserInfo = (props) => {
   const state = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const { email } = state.success;
 
   const [errorMsg, setErrorMsg] = useState(""); //기존 비밀번호 확인
@@ -147,6 +151,21 @@ const ChangeUserInfo = (props) => {
       )
       .then((res) => console.log(res));
   };
+  const signoutHandler = () => {
+    axios
+      .delete(
+        `https://localhost:4000/user/signout`,
+        { data: { email } },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        //여기 부분 나중에 확인
+        if (res.data.message === "success") {
+          dispatch(logoutUserInfo());
+          history.push("/");
+        }
+      });
+  };
 
   return (
     <MypageBody>
@@ -170,7 +189,7 @@ const ChangeUserInfo = (props) => {
               </Btn>
               {/**API 메소드 put - 자원 전체 교체/ patch - 자원 일부 교체시 여기에서는 그렴 patch 사용 */}
               <div>
-                <Btn>회원가입탈퇴</Btn>
+                <Btn onClick={signoutHandler}>회원가입탈퇴</Btn>
               </div>
               {/* 버튼 누른 뒤 다시 한 번 확인하는 창 띄워주고 거기서 확인을 누르면 axios user Delete 삭제 요청 보내기 */}
             </FormHolder>
