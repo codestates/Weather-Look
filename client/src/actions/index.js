@@ -63,13 +63,15 @@ export const authSuccess = () => async (dispatch) => {
 };
 
 export const weatherSuccess = (city) => async (dispatch) => {
+  //console.log("city--", city);
   const weatherData = await axios
     .post(
       "https://localhost:4000/weatherapi",
-      { city },
+      { city: city.searchLocal },
       { withCredentials: true }
     )
-    .then((res) => console.log("weather---res", res));
+    .then((res) => res.data);
+  console.log(weatherData);
   dispatch({ type: WEATHER_SUCCESS, payload: weatherData });
 };
 export const weatherFailure = () => {
