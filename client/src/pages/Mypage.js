@@ -71,7 +71,9 @@ export const Button = styled.button`
 `;
 
 const Mypage = (props) => {
+
   const state = useSelector((state) => state.userReducer);
+
 
   return (
     <MypageBody>
@@ -79,6 +81,7 @@ const Mypage = (props) => {
         <Header>회원정보수정</Header>
         <Form>
           <MypageHolder>
+
             <div>안녕하세요? {state.success.nickname}님!</div>
             <FormHolder>
               <FormDiv>email</FormDiv>
