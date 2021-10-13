@@ -1,5 +1,4 @@
 module.exports = {
-
   login: require("../controllers/user/login"),
   logout: require("../controllers/user/logout"),
   signup: require("../controllers/user/signup"),
@@ -9,7 +8,6 @@ module.exports = {
   auth: require("../controllers/user/mypage"),
   validEmail: require("../controllers/user/validEmail"),
   checkNickname: require("../controllersuser/checkNickname"),
-
 };
 
 // const express = require("express");
