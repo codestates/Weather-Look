@@ -3,6 +3,7 @@ export const initialState = {
   userInfo: {},
   signUpInfo: {},
   openModal: false,
+  success: false,
 };
 export const weatherState = {
   weatherData: {

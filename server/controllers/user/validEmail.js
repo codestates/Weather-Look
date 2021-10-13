@@ -1,6 +1,5 @@
 const { user } = require("../../models");
 
-
 module.exports = async (req, res) => {
   console.log("req", req.body);
   const { email } = req.body;
@@ -11,12 +10,11 @@ module.exports = async (req, res) => {
     where: {
       email: email,
     },
-
   });
   console.log("email", userInfo);
   if (!userInfo) {
-    res.status(201).send("ok");
+    res.status(201).send({ message: "ok" });
   } else {
-    res.status(404).send("already exist");
+    res.status(409).send({ message: "already exist" });
   }
 };
