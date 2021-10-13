@@ -82,25 +82,26 @@ export const Btn = styled.button`
 `;
 const ChangeUserInfo = (props) => {
   const state = useSelector((state) => state.userReducer);
-  const { email } = state.userInfo;
-  const [checkPassword, setCheckPassword] = useState(true); //api요청보내면 이제 맞다 확인 후 변경될 수 있는 state
+  const { email } = state.success;
+  const [checkPassword, setCheckPassword] = useState(false); //api요청보내면 이제 맞다 확인 후 변경될 수 있는 state
+  const [passwordInfo, setPasswordInfo] = useState("");
   const [useNickname, setUseNickname] = useState(false);
-  const [changeNN, setchangeNN] = useState(null);
-  const [changePWD, setChangePWD] = useState(null);
-  const [changeNewPWD, setChangeNewPWD] = useState(null);
+  const [changeNN, setchangeNN] = useState("");
+  const [changePWD, setChangePWD] = useState("");
+  const [changeNewPWD, setChangeNewPWD] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
   const [errMessage, setErrMessage] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const checkNicknameHandler = () => {
     axios
       .post(
         "https://localhost:4000/user/signup/checkNickname",
-        { ninkname: changeNN },
+        { nickname: changeNN },
         {
           withCredentials: true,
         }
       )
       .then((res) => {
-        console.log("nickname", res.data);
         if (res.data.message === "ok") {
           setUseNickname(true);
           console.log("use--", useNickname);
@@ -109,7 +110,24 @@ const ChangeUserInfo = (props) => {
         }
       });
   };
-
+  const handlePasswordValue = (e) => {
+    setPasswordInfo(e.target.value);
+  };
+  const handleCheckPw = () => {
+    axios
+      .post(
+        "https://localhost:4000/user/mypage/checkPassword",
+        { email: email, password: passwordInfo },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        if (res.data.message === "ok") {
+          setCheckPassword(true);
+        } else {
+          setErrorMsg("비밀번호를 다시 확인해주세요.");
+        }
+      });
+  };
   const changeName = (e) => {
     setchangeNN(e.target.value);
   };
@@ -122,6 +140,8 @@ const ChangeUserInfo = (props) => {
   const checkPWD = () => {
     if (changePWD !== changeNewPWD) {
       setErrMsg("비밀번호가 일치하지 않습니다.");
+    } else {
+      setErrMsg("");
     }
   };
   const changeInfoHandler = () => {
@@ -146,8 +166,9 @@ const ChangeUserInfo = (props) => {
             {!checkPassword ? (
               <FormHolder>
                 <div className="title">기존 비밀번호</div>
-                <Input type="password"></Input>
-                <Button>비밀번호 확인</Button>
+                <Input type="password" onChange={handlePasswordValue}></Input>
+                <div>{errorMsg}</div>
+                <Button onClick={handleCheckPw}>비밀번호 확인</Button>
                 {/**axios 비밀번호 일치하는지 여부 확인 => 응답으로 일치하는 것을 확인하며 변경할 수 있는 창 보여주기 */}
               </FormHolder>
             ) : (
@@ -166,8 +187,9 @@ const ChangeUserInfo = (props) => {
                 <Input type="password" onChange={changePasswordHandler}></Input>
                 <div className="title">새로운 비밀번호 확인</div>
                 <Input type="password" onChange={changeNewPWDHandler}></Input>
-                <Btn onClick={checkPWD}>비밀번호 확인</Btn>
                 <div>{errMsg}</div>
+                <Btn onClick={checkPWD}>비밀번호 확인</Btn>
+
                 <Btn className="change-btn" onClick={changeInfoHandler}>
                   비밀번호 변경
                 </Btn>
