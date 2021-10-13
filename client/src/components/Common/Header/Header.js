@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCloudSun } from "@fortawesome/free-solid-svg-icons";
@@ -6,12 +5,8 @@ import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { SigninModal } from "../SigninModal/SiginModal";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  isLogin,
-  isLogout,
-  isOpenModal,
-  logoutUserInfo,
-} from "../../../actions";
+import { isLogin, isLogout, isOpenModal } from "../../../actions";
+import axios from "axios";
 
 export const HeaderContainer = styled.div`
   display: flex;
@@ -49,10 +44,10 @@ export const Button = styled.button`
 `;
 
 function Header() {
+  //console.log("header", handleResSuccess);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.userReducer);
   const { login, openModal } = state;
-  console.log("header,", state);
   const history = useHistory();
   useEffect(() => {}, [login]);
 
@@ -61,11 +56,8 @@ function Header() {
   };
 
   const handleLoout = () => {
-    axios.post("https://localhost:4000/user/logout").then((res) => {
-      dispatch(logoutUserInfo);
-      dispatch(isLogout());
-      history.push("/");
-    });
+    dispatch(isLogout());
+    history.push("/");
   };
 
   return (
