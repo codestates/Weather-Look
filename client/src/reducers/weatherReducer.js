@@ -5,11 +5,9 @@ const weatherReducer = (state = weatherState, action) => {
   const newState = { ...state };
   switch (action.type) {
     case WEATHER_SUCCESS:
-      return { ...newState, weatherData: action.payload, error: null };
+      return { ...newState, weatherOk: action.payload };
       break;
-    case WEATHER_FAILURE:
-      return { ...newState, weatherData: null, error: action.payload };
-      break;
+
     default:
       return state;
   }
