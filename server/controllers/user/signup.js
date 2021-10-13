@@ -8,18 +8,18 @@ module.exports = async (req, res) => {
   }
   const userInfo = await user.findOne({
     where: {
-      email: req.body.email,
-      password: req.body.password,
-      nickname: req.body.nickname,
-      gender: req.body.gender,
+      email: email,
+      password: password,
+      nickname: nickname,
+      gender: gender,
     },
   });
   if (userInfo === null) {
     const newUserId = await user.create({
-      email: req.body.email,
-      password: req.body.password,
-      nickname: req.body.nickname,
-      gender: req.body.gender,
+      email: email,
+      password: password,
+      nickname: nickname,
+      gender: gender,
     });
     const newAccToken = signAccessToken(newUserId.dataValues);
     res.set(
