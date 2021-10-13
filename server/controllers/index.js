@@ -3,8 +3,8 @@ module.exports = {
   logout: require("../controllers/user/logout"),
   signup: require("../controllers/user/signup"),
   signout: require("../controllers/user/signout"),
-  mypage: require("../controllers/user/mypage"),
   inform: require("../controllers/user/inform"),
+  mypage: require("../controllers/user/mypage"),
 };
 
 // const express = require("express");
