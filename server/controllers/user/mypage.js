@@ -3,27 +3,36 @@ const { user } = require("../../models");
 const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res) => {
-  const authorization = req.headers["authorization"];
-  if (!authorization) {
-    return res.status(401).send({ message: "Unauthorized" });
-  } else {
-    const token = authorization.split(" ")[1];
+  // const authorization = req.headers["authorization"];
+  // if (!authorization) {
+  //   return res.status(401).send({ message: "Unauthorized" });
+  // } else {
+  //   const token = authorization.split(" ")[1];
 
-    jwt.verify(token, process.env.ACCESS_SECRET, async (err, data) => {
-      if (err) {
-        return res.status(401).send({ message: "Invalid access token" });
-      } else {
-        const userInfo = await user.findOne({
-          where: { email: data.email },
-          attributes: { exclude: ["password"] },
-        });
-        if (!userInfo) {
-          return res.status(404).send({ message: "User does not exist!" });
-        } else {
-          return res.status(200).send({ data: { userInfo }, message: "ok" });
-        }
-      }
-    });
+  //   jwt.verify(token, process.env.ACCESS_SECRET, async (err, data) => {
+  //     if (err) {
+  //       return res.status(401).send({ message: "Invalid access token" });
+  //     } else {
+  //       const userInfo = await user.findOne({
+  //         where: { email: data.email },
+  //         attributes: { exclude: ["password"] },
+  //       });
+  //       if (!userInfo) {
+  //         return res.status(404).send({ message: "User does not exist!" });
+  //       } else {
+  //         return res.status(200).send({ data: { userInfo }, message: "ok" });
+  //       }
+  //     }
+  //   });
+  const { email } = req.body.email;
+  const userInfo = await user.findOne({
+    where: { email: email },
+    attributes: { exclude: ["password"] },
+  });
+  if (!userInfo) {
+    return res.status(404).send({ message: "User does not exist!" });
+  } else {
+    return res.status(200).send({ data: { userInfo }, message: "ok" });
   }
 };
 

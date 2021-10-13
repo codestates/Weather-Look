@@ -3,20 +3,20 @@ const jwt = require("jsonwebtoken");
 const { user } = require("../../models");
 
 module.exports = async (req, res) => {
-  const authorization = req.headers.authorization;
-  if (!authorization) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+  // const authorization = req.headers.authorization;
+  // if (!authorization) {
+  //   return res.status(401).json({ message: "Unauthorized" });
+  // }
 
-  const accessToken = authorization.split(" ")[1];
-  const data = jwt.verify(accessToken, process.env.ACCESS_SECRET);
+  // const accessToken = authorization.split(" ")[1];
+  // const data = jwt.verify(accessToken, process.env.ACCESS_SECRET);
 
-  if (!data) {
-    return res.status(401).json({ message: "Invalid access token" });
-  }
-
+  // if (!data) {
+  //   return res.status(401).json({ message: "Invalid access token" });
+  // }
+  const { email } = req.body.email;
   const inform = await user.findOne({
-    where: { email: data.email },
+    where: { email: email },
   });
   if (!inform) {
     return res.status(401).json({ message: "Unauthorized" });
