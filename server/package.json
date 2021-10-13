@@ -22,12 +22,12 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.0",
     "node-fetch": "^3.0.0",
-    "nodemon": "^2.0.13",
     "request": "^2.88.2",
     "sequelize": "^6.6.5",
     "upgrade": "^1.1.0"
   },
   "devDependencies": {
+    "nodemon": "^2.0.13",
     "sequelize-cli": "^5.0.0"
   }
 }
