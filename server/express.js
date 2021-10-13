@@ -6,7 +6,6 @@ const app = express();
 const fs = require("fs");
 const https = require("https");
 const controllers = require("./controllers");
-const bodyParser = require("body-parser");
 
 app.use(
   cors({
