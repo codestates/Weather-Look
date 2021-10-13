@@ -26,7 +26,7 @@ export const BlurRopaContainer = styled.div`
   margin: 0 auto;
   height: 400px;
   filter: blur(5px);
-  -webkit-filter: blur(5px);
+  -webkit-filter: blur(2px);
 `;
 export const Slides = styled.ul`
   //display: table-cell;

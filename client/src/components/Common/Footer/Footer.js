@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 export const FooterContainer = styled.footer`
-  position: relative;
+  position: absolute;
   padding-left: 50px;
   padding-top: 10px;
   padding-bottom: 10px;

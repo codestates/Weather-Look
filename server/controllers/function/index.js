@@ -9,11 +9,24 @@ module.exports = {
     return accessToken;
   },
   sendAccessToken: (res, accessToken) => {
-    res.set(
+    /*res.set(
       "SET-cookie",
-      `jwt = ${accessToken}; Domain = "https://localhost:4000"; Path = /user/login; SameSite = Lax; Secure = true; HttpOnly = true;`
+      `jwt = ${accessToken}; Domain = "https://localhost:4000"; Path = /user/login; SameSite = none; Secure = true; HttpOnly = true;`
     );
     //Lax: get method에 대해서만 쿠키를 전송
-    res.json({ message: "ok" });
+    res.json({ message: "ok" });*/
+    res.cookie("jwt", accessToken, {
+      httpOnly: true,
+    });
+    res.status(200).send({ message: "ok" });
+  },
+  isAuthorized: (req) => {
+    console.log("jwt", req.cookies);
+    const jwt = req.cookies.jwt;
+    if (!jwt) {
+      return null;
+    } else {
+      return verify(jwt, process.env.ACCESS_SECRET);
+    }
   },
 };

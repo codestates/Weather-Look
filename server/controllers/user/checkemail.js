@@ -17,6 +17,7 @@ connection.connect(function (err) {
 });
 
 router.post("/user/signup/checkemail", function (req, res) {
+  console.log("email", req.body);
   let user_email = req.body.email;
   console.log(req.body.email);
   let sql = "select email from users where id=?";

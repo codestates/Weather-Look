@@ -9,7 +9,7 @@ const controllers = require("./controllers");
 
 app.use(
   cors({
-    origin: ["https://localhost:4000"],
+    origin: ["https://localhost:3000"],
     credentials: true,
     methods: ["GET", "POST", "OPTIONS"],
   })
@@ -18,9 +18,12 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-app.post("login", controllers.login);
-app.post("logout", controllers.logout);
-app.post("signup", controllers.signup);
+app.post("/user/login", controllers.login);
+app.post("/user/logout", controllers.logout);
+app.post("/user/signup", controllers.signup);
+app.post("/user/signup/validEmail", controllers.validEmail);
+app.post("/user/signup/checkNickname", controllers.checkNickname);
+app.get("/user/auth", controllers.auth);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

@@ -8,6 +8,7 @@ export const IS_OPEN_MODAL = "IS_OPEN_MODAL";
 export const IS_CLOSE_MODAL = "IS_CLOSE_MODAL";
 export const WEATHER_SUCCESS = "WEATHER_SUCCESS";
 export const WEATHER_FAILURE = "WEATHER_FAILURE";
+export const AUTH_SUCCESS = " AUTH_SUCCESS";
 
 // actions creator functions
 export const isLogin = (email, password) => {
@@ -45,6 +46,16 @@ export const isCloseModal = () => {
 {
   /**서버로 post 요청 보내기 */
 }
+export const authSuccess = () => async (dispatch) => {
+  const userData = await axios
+    .get("https://localhost:4000/user/auth", { withCredentials: true })
+    .then((res) => res.data.data.userInfo);
+  dispatch({ type: AUTH_SUCCESS, payload: userData });
+
+  //console.log("auth", res.data.data.userInfo);
+  //isAuthenticated(res.data.data.userInfo);
+};
+
 export const weatherSuccess = async (city) => {
   const weatherData = await axios.post("https://localhost:4000/weatherAPI", {
     city,

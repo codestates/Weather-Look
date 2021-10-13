@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { isCloseModal, isLogin } from "../actions/index";
+import { isCloseModal, authSuccess, isLogin } from "../actions/index";
+import { vaildEmail } from "../utils/validation";
 
 axios.defaults.withCredentials = true;
 
@@ -32,24 +33,47 @@ export const Button = styled.button`
 
 function Signin() {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.userReducer);
+  //console.log("로그", state);
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
   });
   const [errorMsg, setErrorMsg] = useState("");
-  const handleInputValue = (key) => (e) => {
-    console.log("key", key, "e", e);
-    setLoginInfo({ ...loginInfo, [key]: e.target.value });
-    console.log("inputvalue", loginInfo);
+  const [checkEmail, setCheckEmail] = useState(false);
+  useEffect(() => {}, [checkEmail]);
+
+  const isAuthenticated = (data) => {
+    if (!data.success) {
+      return;
+    } else {
+      dispatch(isLogin());
+      dispatch(isCloseModal());
+      //setUserinfo(data);
+      //history.push("/mypage");
+    }
   };
+
+  const handleInputValue = (key) => (e) => {
+    setLoginInfo({ ...loginInfo, [key]: e.target.value });
+  };
+
+  const closeModalHandler = () => {
+    dispatch(isCloseModal());
+  };
+
   const loginRequestHandler = () => {
     //입력한 값이 다 채워져있는지 확인 후
     //입력받은 로그인정보를 서버에 요청
-    console.log("loginInfo", loginInfo);
+    //console.log("loginInfo", loginInfo);
     const { email, password } = loginInfo;
+
     if (!email || !password) {
       setErrorMsg("이메일과 비밀번호를 확인해주세요");
+    } else if (!vaildEmail(email)) {
+      setErrorMsg("이메일 형식이 맞는지 확인해주세요");
     } else {
+      setCheckEmail(true);
       //axios
       axios
         .post(
@@ -58,20 +82,17 @@ function Signin() {
           { withCredentials: true }
         )
         .then((res) => {
-          console.log("login", res);
+          console.log("login", res.data.message);
+          if (res.data.message === "ok") {
+            dispatch(authSuccess());
+            isAuthenticated(state);
+            // handleResSuccess(res.data.message);
+            //dispatch(isLogin());
+            //dispatch(isCloseModal());
+          } else {
+            setErrorMsg("비밀번호를 확인해주세요");
+          }
         });
-      dispatch(isLogin());
-      dispatch(isCloseModal());
-      axios
-        .post(
-          "https://www.weatherLooks.com/user/login",
-          {
-            email,
-            password,
-          },
-          { "Content-Type": "application/json" }
-        )
-        .then((res) => console.log(res));
     }
   };
 
@@ -91,7 +112,7 @@ function Signin() {
       <Button type="submit" onClick={loginRequestHandler}>
         로그인
       </Button>
-      <Button color="#E7EDF6" onClick={dispatch(isCloseModal)}>
+      <Button color="#E7EDF6" onClick={closeModalHandler}>
         <Link to="/signup" style={{ textDecoration: "none" }}>
           회원가입하기
         </Link>

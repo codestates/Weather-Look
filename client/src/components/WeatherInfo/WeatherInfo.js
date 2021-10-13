@@ -27,6 +27,7 @@ const WeatherInfo = ({ weatherData }) => {
       <WeatherHolder>
         <img
           src={`http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
+          alt="backgroud"
         />
 
         <div>날씨: {weatherData.weather[0].main}</div>
