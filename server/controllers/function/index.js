@@ -29,13 +29,13 @@ module.exports = {
       return verify(jwt, process.env.ACCESS_SECRET);
     }
   },
-  getWeatherApi: (cityname, key) => {
-    try {
-      return fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=${key}&units=metric`
-      );
-    } catch {
-      return null;
-    }
-  },
+  // getWeatherApi: (cityname, key) => {
+  //   try {
+  //     return fetch(
+  //       `https://api.openweathermap.org/data/2.5/forecast?q=${cityname}&appid=${key}&units=metric`
+  //     );
+  //   } catch {
+  //     return null;
+  //   }
+  // },
 };
