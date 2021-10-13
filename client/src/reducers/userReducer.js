@@ -23,7 +23,7 @@ const userReducer = (state = initialState, action) => {
       return { ...newState, userInfo: action.payload };
       break;
     case LOGOUT_USERINFO:
-      return { ...newState, userInfo: null };
+      return { ...newState, login: false, userInfo: {} };
       break;
     case ADD_SIGNUP_INFO:
       return { ...newState, signupInfo: action.payload };
@@ -37,6 +37,7 @@ const userReducer = (state = initialState, action) => {
     case AUTH_SUCCESS:
       return { ...newState, success: action.payload };
       break;
+
     default:
       return state;
   }

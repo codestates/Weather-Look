@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import SigninModal from "../Common/SigninModal/SiginModal";
-import { isOpenModal } from "../../actions";
+import { isOpenModal, weatherSuccess } from "../../actions";
 
 export const InputWrapper = styled.div`
   //position: absolute;
@@ -69,10 +69,13 @@ const WeatherSearch = (props) => {
     setSearchLocal(event.target.value);
     //console.log("searchLocal", searchLocal);
   };
+  const handleWeaherInfo = () => {
+    console.log("search");
+    dispatch(weatherSuccess(searchLocal));
+  };
   {
-    /**서버로 보내나? */
-  }
-  const getData = () => {
+    /**서버로 보내나? 
+     * const getData = () => {
     let API_URL_OpenWeatherMap = `https://api.openweathermap.org/data/2.5/weather?q=${searchLocal}&appid=5d77f49e9933d944cfeb07670b2b4014`;
     axios
       .get(API_URL_OpenWeatherMap)
@@ -84,7 +87,8 @@ const WeatherSearch = (props) => {
   };
   const openModalHandler = () => {
     dispatch(isOpenModal());
-  };
+  };*/
+  }
 
   return (
     <>
@@ -97,11 +101,11 @@ const WeatherSearch = (props) => {
           ></Input>
 
           {state.login ? (
-            <Button onClick={getData}>
+            <Button onClick={handleWeaherInfo}>
               <FontAwesomeIcon icon={faSearch} size="2x" />
             </Button>
           ) : (
-            <Button onClick={openModalHandler}>
+            <Button>
               <FontAwesomeIcon icon={faSearch} size="2x" />
             </Button>
           )}

@@ -28,10 +28,9 @@ export const addUserInfo = (userInfo) => {
     payload: userInfo,
   };
 };
-export const logoutUserInfo = (userInfo) => {
+export const logoutUserInfo = () => {
   return {
     type: LOGOUT_USERINFO,
-    payload: userInfo,
   };
 };
 export const addSignupInfo = (signupInfo) => {
@@ -63,14 +62,15 @@ export const authSuccess = () => async (dispatch) => {
   //isAuthenticated(res.data.data.userInfo);
 };
 
-export const weatherSuccess = async (city) => {
-  const weatherData = await axios.post("https://localhost:4000/weatherAPI", {
-    city,
-  });
-  return {
-    type: WEATHER_SUCCESS,
-    payload: weatherData.data,
-  };
+export const weatherSuccess = (city) => async (dispatch) => {
+  const weatherData = await axios
+    .post(
+      "https://localhost:4000/weatherapi",
+      { city },
+      { withCredentials: true }
+    )
+    .then((res) => console.log("weather---res", res));
+  dispatch({ type: WEATHER_SUCCESS, payload: weatherData });
 };
 export const weatherFailure = () => {
   return {

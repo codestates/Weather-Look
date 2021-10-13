@@ -7,8 +7,7 @@ const fs = require("fs");
 const https = require("https");
 const controllers = require("./controllers");
 const bodyParser = require("body-parser");
-/*const request = require("request");
-
+const request = require("request");
 
 app.use(express.static("public")); //정적페이지를 렌더링할때 루트디렉토리 역할을 한다
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -20,7 +19,7 @@ app.get("/", function (req, res) {
 
 const apiKey = `${process.env.WEATHER_API_KEY}`;
 
-app.post("/", function (req, res) {
+app.post("/weatherapi", function (req, res) {
   let city = req.body.city;
   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   //post 요청에 전달된 도시와 .env 파일의 apikey를 사용해서 api에서 데이터를 가져오는거
@@ -77,7 +76,7 @@ app.post("/", function (req, res) {
     }
   });
 });
-*/
+
 app.use(
   cors({
     origin: ["https://localhost:3000"],
@@ -92,13 +91,12 @@ app.use(express.urlencoded({ extended: false }));
 app.post("/user/login", controllers.login);
 app.post("/user/logout", controllers.logout);
 app.post("/user/signup", controllers.signup);
-
 app.post("/user/mypage/checkPassword", controllers.checkPassword);
 app.post("/user/signup/validEmail", controllers.validEmail);
 app.post("/user/signup/checkNickname", controllers.checkNickname);
 app.get("/user/auth", controllers.auth);
 
-app.delete("user/signout", controllers.signout);
+app.delete("/user/signout", controllers.signout);
 app.patch("/user/inform", controllers.inform);
 app.get("/user/mypage", controllers.mypage);
 
