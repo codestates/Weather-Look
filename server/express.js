@@ -109,7 +109,7 @@ const certificate = fs.readFileSync("./cert.pem", "utf8");
 const credentials = { key: privateKey, cert: certificate };
 
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
-const httpsServer = https.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 httpsServer.listen(HTTPS_PORT, () => console.log("server runnning"));
 
 module.exports = httpsServer;
