@@ -6,6 +6,7 @@ import {
   ADD_SIGNUP_INFO,
   IS_OPEN_MODAL,
   IS_CLOSE_MODAL,
+  AUTH_SUCCESS,
 } from "../actions/index";
 import { initialState } from "./initialState";
 
@@ -32,6 +33,9 @@ const userReducer = (state = initialState, action) => {
       break;
     case IS_CLOSE_MODAL:
       return { ...newState, openModal: false };
+      break;
+    case AUTH_SUCCESS:
+      return { ...newState, success: action.payload };
       break;
     default:
       return state;

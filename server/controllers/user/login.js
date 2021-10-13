@@ -7,8 +7,11 @@ module.exports = async (req, res) => {
     where: { email: req.body.email, password: req.body.password },
   });
   if (!userInfo) {
+
+    res.status(401).send({ message: "Invalid user or Wrong password" });
+
     console.log("userInfo--");
-    res.status(401).send("Invalid user or Wrong password");
+
   } else {
     const sign = signAccessToken(userInfo.dataValues);
     sendAccessToken(res, sign);

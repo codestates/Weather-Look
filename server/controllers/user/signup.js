@@ -2,7 +2,8 @@ const { user } = require("../../models");
 const { signAccessToken } = require("../function/index");
 
 module.exports = async (req, res) => {
-  const { email, password, nickname, gender } = req.body;
+  console.log("req", req.body);
+  const { email, password, nickname, gender } = req.body.userInfo;
   if (!email || !password || !nickname || !gender) {
     return res.status(400).send({ message: "Bad Requset" });
   }
@@ -26,7 +27,7 @@ module.exports = async (req, res) => {
       "Set-Cookie",
       `jwt = ${newAccToken}; Domain = "https://localhost:4000"; Path = /user/signup; SameSite; Secure; HttpOnly = true;`
     );
-    res.status(201).json({ message: "created :)" });
+    res.status(201).json({ message: "created" });
   } else {
     res.status(409).send({ message: "This email already exists!" });
   }

@@ -83,21 +83,18 @@ function Signup() {
   const [isCheckPassword, setIsCheckPassword] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
   const [isNickname, setNickname] = useState(false);
-  const [isRadio, setIsRadio] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const history = useHistory();
 
   useEffect(() => {
     console.log(isPassword);
     console.log(isEmail);
-  }, [isPassword, isEmail, isCheckPassword, isNickname, isRadio]);
+  }, [isPassword, isEmail, isCheckPassword, isNickname]);
 
   const handelInputValue = (key) => (e) => {
     setUserInfo({ ...userInfo, [key]: e.target.value });
   };
-  const checkSex = () => {
-    setIsRadio(true);
-  };
+
   //email check fucntion
   const checkEmail = () => {
     if (!userInfo.email) {
@@ -108,19 +105,30 @@ function Signup() {
       setErrorMsg("이메일 형식이 아닙니다.");
       ////유효성 검사 이메일 형식이 맞는지
     } else {
+      const { email } = userInfo;
       //axios get 요청 이미 유요한 이메일인지 확인
-      setIsEmail(true);
-      delete userInfo.checkPassword;
+      //setIsEmail(true);
+      //delete userInfo.checkPassword;
 
-      axios.post("https://localhost:4000/signup", { userInfo }).then((res) => {
-        console.log("signup", res.data);
-      });
+      axios
+        .post(
+          "https://localhost:4000/user/signup/validEmail",
+          { email },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "ok") {
+            setIsEmail(true);
+          }
+        });
     }
   };
   const checkPassword = () => {
     //2개의 비밀번호가 일치하는지 확인
     const { password, checkPassword } = userInfo;
-
+    console.log(userInfo);
     if (!password || !checkPassword) {
       setErrorMsg("비밀번호를 확인해주세요.");
     }
@@ -133,26 +141,50 @@ function Signup() {
 
   const checkNickname = () => {
     //유효성 검사 nickname 형식이 맞는지 , 이미 유효한 nickname 확인
-    if (userInfo.nickname) {
-      setNickname(true);
-    }
+    const { nickname } = userInfo;
+    axios
+      .post(
+        "https://localhost:4000/user/signup/checkNickname",
+        { nickname },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log("nickname", res.data);
+        if (res.data.message === "ok") {
+          setNickname(true);
+        }
+      });
   };
 
   const handleSignup = () => {
     const { email, password, checkPassword, nickname, gender } = userInfo;
-    if (!email || !password || !checkPassword || !nickname || !isRadio) {
-      //console.log(email, password, checkPassword, nickname, gender);
+    if (!email || !password || !checkPassword || !nickname || !gender) {
+      console.log(email, password, checkPassword, nickname, gender);
       setErrorMsg("모든 항목은 필수입니다.");
     } else if (
       isEmail &&
       isPassword &&
       isCheckPassword &&
       isNickname &&
-      isRadio
+      gender
     ) {
-      setErrorMsg("회원가입완료");
       //history.push("/");
       console.log("회원가입완료");
+      axios
+        .post(
+          "https://localhost:4000/user/signup",
+          { userInfo },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          if (res.data.message === "created") {
+            history.push("/");
+            setErrorMsg("회원가입완료");
+          }
+        })
+        .catch((err) => console.log(err));
       //서버에 회원가입 요청 보내기
     }
   };
@@ -244,21 +276,21 @@ function Signup() {
               type="radio"
               value="Male"
               name="gender"
-              onChange={checkSex}
+              onChange={handelInputValue("gender")}
             />{" "}
             Male
             <input
               type="radio"
               value="Female"
               name="gender"
-              onChange={checkSex}
+              onChange={handelInputValue("gender")}
             />{" "}
             Female
             <input
               type="radio"
               value="Other"
               name="gender"
-              onChange={checkSex}
+              onChange={handelInputValue("gender")}
             />{" "}
             Other
           </FormControl>
