@@ -57,8 +57,8 @@ const WeatherSearch = (props) => {
   const state = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const [searchLocal, setSearchLocal] = useState("seoul");
-  const [weatherData, setWeatherData] = useState();
   const [getWeather, setGetWeather] = useState(false);
+
   {
     /**받아온 searchLocal을 가지고 api에 그 지역의 날씨를 요청을 보냄 */
   }
@@ -71,7 +71,8 @@ const WeatherSearch = (props) => {
   };
   const handleWeaherInfo = () => {
     console.log("search");
-    dispatch(weatherSuccess(searchLocal));
+
+    dispatch(weatherSuccess({ searchLocal }));
   };
   {
     /**서버로 보내나? 
@@ -112,11 +113,7 @@ const WeatherSearch = (props) => {
         </InputHolder>
       </InputWrapper>
 
-      {getWeather ? (
-        <WeatherInfo weatherData={weatherData} />
-      ) : (
-        <div>지역을 검색하세요</div>
-      )}
+      <WeatherInfo />
       {state.openModal ? <SigninModal /> : null}
     </>
   );

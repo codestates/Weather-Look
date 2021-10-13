@@ -9,7 +9,7 @@ module.exports = {
   validEmail: require("../controllers/user/validEmail"),
   checkNickname: require("../controllers/user/checkNickname"),
   checkPassword: require("../controllers/user/checkPassword"),
-
+  weatherapi: require("../controllers/weather/index"),
 };
 
 // const express = require("express");
