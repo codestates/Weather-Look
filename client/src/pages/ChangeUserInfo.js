@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { logoutUserInfo } from "../actions/index";
+import { logoutUserInfo, authSuccess } from "../actions/index";
 
 axios.defaults.withCredentials = true;
 
@@ -149,7 +149,12 @@ const ChangeUserInfo = (props) => {
         },
         { withCredentials: true }
       )
-      .then((res) => console.log(res));
+      .then((res) => {
+        if (res) {
+          dispatch(authSuccess());
+          alert("변경 완료");
+        }
+      });
   };
   const signoutHandler = () => {
     axios
@@ -162,6 +167,7 @@ const ChangeUserInfo = (props) => {
         //여기 부분 나중에 확인
         if (res.data.message === "success") {
           dispatch(logoutUserInfo());
+          alert("회원탈퇴 완료");
           history.push("/");
         }
       });
@@ -183,10 +189,11 @@ const ChangeUserInfo = (props) => {
               <div className="title">새로운 비밀번호 확인</div>
               <Input type="password" onChange={changeNewPWDHandler}></Input>
               <Btn onClick={checkPWD}>비밀번호 확인</Btn>
-              <div>{errorMsg}</div>
+
               <Btn className="change-btn" onClick={changeInfoHandler}>
                 비밀번호 변경
               </Btn>
+              <div>{errorMsg}</div>
               {/**API 메소드 put - 자원 전체 교체/ patch - 자원 일부 교체시 여기에서는 그렴 patch 사용 */}
               <div>
                 <Btn onClick={signoutHandler}>회원가입탈퇴</Btn>

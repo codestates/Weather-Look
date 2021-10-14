@@ -65,10 +65,27 @@ export const Input = styled.input`
   padding: 10px;
   margin-bottom: 10px;
 `;
-export const Small = styled.small`
-  position: absolute;
+export const Small = styled.span`
+  // position: absolute;
   bottom: 0;
   left: 0;
+  color: red;
+`;
+export const Btn = styled.button`
+  border: transparent;
+  padding: 5px 10px;
+  //margin-left: 50px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 15px;
+  font-weight: bolder;
+  background-color: #ff9e0f;
+  &:hover {
+    background-color: white;
+    color: #ff9e0f;
+    border: 1px solid #ff9e0f;
+  }
 `;
 
 function Signup() {
@@ -142,20 +159,24 @@ function Signup() {
   const checkNickname = () => {
     //유효성 검사 nickname 형식이 맞는지 , 이미 유효한 nickname 확인
     const { nickname } = userInfo;
-    axios
-      .post(
-        "https://localhost:4000/user/signup/checkNickname",
-        { nickname },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log("nickname", res.data);
-        if (res.data.message === "ok") {
-          setNickname(true);
-        }
-      });
+    if (nickname) {
+      axios
+        .post(
+          "https://localhost:4000/user/signup/checkNickname",
+          { nickname },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          console.log("nickname", res.data);
+          if (res.data.message === "ok") {
+            setNickname(true);
+          }
+        });
+    } else {
+      setErrorMsg("이미 사용중인 닉네임입니다.");
+    }
   };
 
   const handleSignup = () => {
@@ -182,6 +203,7 @@ function Signup() {
           if (res.data.message === "created") {
             history.push("/");
             setErrorMsg("회원가입완료");
+            alert("회원가입완료");
           }
         })
         .catch((err) => console.log(err));
@@ -222,8 +244,7 @@ function Signup() {
               />
             )}
 
-            <button onClick={checkEmail}>Check Email</button>
-            <Small>{errorMsg}</Small>
+            <Btn onClick={checkEmail}>Check Email</Btn>
           </FormControl>
           <FormControl>
             <label>비밀번호</label>
@@ -236,7 +257,6 @@ function Signup() {
             ) : (
               <Input type="password" onChange={handelInputValue("password")} />
             )}
-            <Small>{errorMsg}</Small>
           </FormControl>
           <FormControl>
             <label>비밀번호 확인</label>
@@ -252,8 +272,7 @@ function Signup() {
                 onChange={handelInputValue("checkPassword")}
               />
             )}
-            <button onClick={checkPassword}>Check password</button>
-            <Small>{errorMsg}</Small>
+            <Btn onClick={checkPassword}>Check password</Btn>
           </FormControl>
           <FormControl>
             <label>닉네임</label>
@@ -267,8 +286,7 @@ function Signup() {
               <Input type="text" onChange={handelInputValue("nickname")} />
             )}
 
-            <button onClick={checkNickname}>Check Nickname</button>
-            <Small>{errorMsg}</Small>
+            <Btn onClick={checkNickname}>Check Nickname</Btn>
           </FormControl>
           <FormControl>
             <label>성별</label>
@@ -294,9 +312,9 @@ function Signup() {
             />{" "}
             Other
           </FormControl>
-          <button type="submit" onClick={handleSignup}>
+          <Btn type="submit" onClick={handleSignup}>
             회원가입
-          </button>
+          </Btn>{" "}
           <Small>{errorMsg}</Small>
         </Form>
       </SignupContainer>

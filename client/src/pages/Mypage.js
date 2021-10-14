@@ -39,14 +39,18 @@ export const FormHolder = styled.div`
 `;
 export const FormDiv = styled.div`
   margin-top: 20px;
-  font-size: 23px;
+  margin-bottom: 15px;
+  font-size: 17px;
+  font-weight: bold;
   //border: 1px solid;
   width: 100px;
+  color
 `;
 export const Info = styled.div`
-  border: 1px solid;
-  padding: 5px;
+  border-bottom: 1px solid;
+  padding: 3px;
   font-size: 20px;
+  margin-bottom: 30px;
 `;
 
 export const Button = styled.button`

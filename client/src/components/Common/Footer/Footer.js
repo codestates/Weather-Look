@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 export const FooterContainer = styled.footer`
   position: absolute;
-  padding-left: 50px;
+  padding-left: 370px;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: white;
+  background-color: #e7edf6;
   bottom: 0;
   width: 100%;
 `;

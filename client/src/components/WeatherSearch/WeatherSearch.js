@@ -74,6 +74,9 @@ const WeatherSearch = () => {
 
     dispatch(weatherSuccess({ searchLocal }));
   };
+  const handelOpenModal = () => {
+    dispatch(isOpenModal());
+  };
   {
     /**서버로 보내나? 
      * const getData = () => {
@@ -106,7 +109,7 @@ const WeatherSearch = () => {
               <FontAwesomeIcon icon={faSearch} size="2x" />
             </Button>
           ) : (
-            <Button>
+            <Button onClick={handelOpenModal}>
               <FontAwesomeIcon icon={faSearch} size="2x" />
             </Button>
           )}

@@ -18,8 +18,8 @@ import axios from "axios";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-image: url(${boo});
-  background-color: ivory;
+  //background-image: url(${boo});
+  background-color: black;
   background-size: cover;
   width: 100vw;
   height: 100vh;
