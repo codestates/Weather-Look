@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { isCloseModal, authSuccess, isLogin } from "../actions/index";
@@ -33,6 +33,7 @@ export const Button = styled.button`
 
 function Signin() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const state = useSelector((state) => state.userReducer);
   //console.log("로그", state);
   const [loginInfo, setLoginInfo] = useState({
@@ -50,7 +51,7 @@ function Signin() {
       dispatch(isLogin());
       dispatch(isCloseModal());
       //setUserinfo(data);
-      //history.push("/mypage");
+      history.push("/");
     }
   };
 
@@ -60,6 +61,7 @@ function Signin() {
 
   const closeModalHandler = () => {
     dispatch(isCloseModal());
+    history.push("/signup");
   };
 
   const loginRequestHandler = () => {
@@ -77,18 +79,15 @@ function Signin() {
       //axios
       axios
         .post(
-          "https://localhost:4000/user/login",
+          `${process.env.REACT_APP_END_POINT}user/login`,
           { email, password },
           { withCredentials: true }
         )
         .then((res) => {
-          console.log("login", res.data.message);
+          //console.log("login", res.data.message);
           if (res.data.message === "ok") {
             dispatch(authSuccess());
             isAuthenticated(state);
-            // handleResSuccess(res.data.message);
-            //dispatch(isLogin());
-            //dispatch(isCloseModal());
           } else {
             setErrorMsg("비밀번호를 확인해주세요");
           }
@@ -109,13 +108,9 @@ function Signin() {
       <div>Password</div>
       <Input type="password" onChange={handleInputValue("password")} />
       <div className="alert">{errorMsg}</div>
-      <Button type="submit" onClick={loginRequestHandler}>
-        로그인
-      </Button>
-      <Button color="#E7EDF6" onClick={closeModalHandler}>
-        <Link to="/signup" style={{ textDecoration: "none" }}>
-          회원가입하기
-        </Link>
+      <Button onClick={loginRequestHandler}>로그인</Button>
+      <Button color="#B6C8FA" onClick={closeModalHandler}>
+        회원가입하기
       </Button>
     </LoginContainer>
   );

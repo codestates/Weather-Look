@@ -29,6 +29,8 @@ export const HeaderContainer = styled.div`
     margin: 15px;
   }
   .Link {
+    font-size: 17px;
+    font-weight: 600;
     &:hover {
       color: red;
     }
@@ -41,11 +43,14 @@ export const Button = styled.button`
   padding-right: 3.5em;
   background-color: transparent;
   border: none;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 600;
   color: white;
 
   &:hover {
     color: red;
+    cursor: pointer;
+    size: 2x;
   }
 `;
 
@@ -63,6 +68,7 @@ function Header() {
 
   const handleLoout = () => {
     dispatch(isLogout());
+    alert("로그아웃 완료");
     history.push("/");
   };
 
@@ -100,7 +106,6 @@ function Header() {
           </Button>
         ) : (
           <Button onClick={handleLoout} className="button">
-            <Link to="/" />
             로그아웃
           </Button>
         )}
