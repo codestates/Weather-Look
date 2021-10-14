@@ -53,7 +53,7 @@ export const Button = styled.button`
     color: white;
   }
 `;
-const WeatherSearch = (props) => {
+const WeatherSearch = () => {
   const state = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const [searchLocal, setSearchLocal] = useState("seoul");
@@ -112,7 +112,6 @@ const WeatherSearch = (props) => {
           )}
         </InputHolder>
       </InputWrapper>
-
       <WeatherInfo />
       {state.openModal ? <SigninModal /> : null}
     </>
