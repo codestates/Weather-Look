@@ -7,17 +7,18 @@ const fs = require("fs");
 const https = require("https");
 const controllers = require("./controllers");
 
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+
 app.use(
   cors({
-    origin: ["https://localhost:3000"],
+    origin: true,
     credentials: true,
     methods: ["GET", "POST", "OPTIONS", "PATCH", "DELETE"],
   })
 );
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.urlencoded({ extended: false }));
 app.post("/weatherapi", controllers.weatherapi);
 app.post("/user/login", controllers.login);
 app.post("/user/logout", controllers.logout);
@@ -35,12 +36,5 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-const privateKey = fs.readFileSync("./key.pem", "utf8");
-const certificate = fs.readFileSync("./cert.pem", "utf8");
-const credentials = { key: privateKey, cert: certificate };
-
 const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(HTTPS_PORT, () => console.log("server runnning"));
-
-module.exports = httpsServer;
+app.listen(HTTPS_PORT, () => console.log("server runnning"));
