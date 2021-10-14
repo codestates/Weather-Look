@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
-
+import { weatherSuccess } from "../../actions";
+import { useSelector, useDispatch } from "react-redux";
 export const WeatherContainer = styled.div`
   text-align: center;
   background-color: rgba(247, 247, 247, 0.7);
@@ -21,15 +21,19 @@ export const WeatherHolder = styled.div`
 `;
 
 const WeatherInfo = () => {
+  const dispatch = useDispatch();
   const state = useSelector((state) => state.userReducer);
+  // console.log("winfo---", searchLocal);
+
+  const searchLocal = "seoul";
 
   useEffect(() => {
-    console.log(state);
-  }, []);
+    dispatch(weatherSuccess({ searchLocal }));
+  });
   console.log("data---", state.weatherOk);
   return (
     <WeatherContainer>
-      <Title>오늘의 {state.weatherOk.name} 날씨</Title>
+      {/**<Title>오늘의 {state.weatherOk.name} 날씨</Title>
       <WeatherHolder>
         <img
           src={`http://openweathermap.org/img/w/${state.weatherOk.weather[0].icon}.png`}
@@ -45,7 +49,7 @@ const WeatherInfo = () => {
         <div>온도: {state.weatherOk.main.temp.toFixed(1)}°</div>
         <div>최고기온: {state.weatherOk.main.temp_max.toFixed(1)}°</div>
         <div>최저기온: {state.weatherOk.main.temp_min.toFixed(1)}°</div>
-      </WeatherHolder>
+      </WeatherHolder> */}
     </WeatherContainer>
   );
 };

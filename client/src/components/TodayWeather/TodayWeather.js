@@ -13,10 +13,12 @@ export const Title = styled.h1`
 
 const TodayWeather = (props) => {
   const [items, setItems] = useState(RopaState.items);
+
   return (
     <>
       <Title>today's weather</Title>
       <WeatherSearch />
+
       <RopaList items={items} />
     </>
   );
