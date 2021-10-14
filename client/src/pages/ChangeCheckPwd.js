@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -93,14 +93,14 @@ const ChangeUserInfo = () => {
   const [passwordInfo, setPasswordInfo] = useState(""); //기존 비밀번호 일치하는지 여부 보내기위한 기존 비밀번호
   const [errorMsg, setErrorMsg] = useState("");
   //기존비밀번호 확인 요청
-  console.log("checkpwd", email);
+  //console.log("checkpwd", email);
   useEffect(() => {}, [checkPassword]);
 
   const handleCheckPw = () => {
     //setIsLoding(false);
     axios
       .post(
-        "https://localhost:4000/user/mypage/checkPassword",
+        `${process.env.REACT_APP_END_POINT}user/mypage/checkPassword`,
         { email: email, password: passwordInfo },
         { withCredentials: true }
       )

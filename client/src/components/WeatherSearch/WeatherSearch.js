@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import WeatherInfo from "../WeatherInfo/WeatherInfo";
-import axios from "axios";
+
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -57,11 +57,7 @@ const WeatherSearch = () => {
   const state = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const [searchLocal, setSearchLocal] = useState("seoul");
-  const [getWeather, setGetWeather] = useState(false);
 
-  {
-    /**받아온 searchLocal을 가지고 api에 그 지역의 날씨를 요청을 보냄 */
-  }
   useEffect(() => {}, [searchLocal]);
 
   const handleInputChange = (event) => {
@@ -70,29 +66,13 @@ const WeatherSearch = () => {
     //console.log("searchLocal", searchLocal);
   };
   const handleWeaherInfo = () => {
-    console.log("search");
+    //console.log("search");
 
     dispatch(weatherSuccess({ searchLocal }));
   };
   const handelOpenModal = () => {
     dispatch(isOpenModal());
   };
-  {
-    /**서버로 보내나? 
-     * const getData = () => {
-    let API_URL_OpenWeatherMap = `https://api.openweathermap.org/data/2.5/weather?q=${searchLocal}&appid=5d77f49e9933d944cfeb07670b2b4014`;
-    axios
-      .get(API_URL_OpenWeatherMap)
-      .then((res) => {
-        setWeatherData(res.data);
-        setGetWeather(true);
-      })
-      .catch((error) => console.log(error));
-  };
-  const openModalHandler = () => {
-    dispatch(isOpenModal());
-  };*/
-  }
 
   return (
     <>

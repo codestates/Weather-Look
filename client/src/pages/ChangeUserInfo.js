@@ -104,14 +104,14 @@ const ChangeUserInfo = (props) => {
   const checkNicknameHandler = () => {
     axios
       .post(
-        "https://localhost:4000/user/signup/checkNickname",
+        `${process.env.REACT_APP_END_POINT}user/signup/checkNickname`,
         { nickname: changeNN },
         {
           withCredentials: true,
         }
       )
       .then((res) => {
-        console.log("hy", res.data);
+        // console.log("hy", res.data);
         if (res.data.message === "ok") {
           setErrorMsg("사용 가능한 닉네임입니다.");
         }
@@ -131,7 +131,7 @@ const ChangeUserInfo = (props) => {
     setChangeNewPWD(e.target.value);
   };
   const checkPWD = () => {
-    console.log(changePWD, changeNewPWD);
+    //console.log(changePWD, changeNewPWD);
     if (changePWD !== changeNewPWD) {
       setErrorMsg("비밀번호가 일치하지 않습니다.");
     } else {
@@ -141,7 +141,7 @@ const ChangeUserInfo = (props) => {
   const changeInfoHandler = () => {
     axios
       .patch(
-        `https://localhost:4000/user/inform`,
+        `${process.env.REACT_APP_END_POINT}user/inform`,
         {
           email,
           nickname: changeNN,
@@ -159,7 +159,7 @@ const ChangeUserInfo = (props) => {
   const signoutHandler = () => {
     axios
       .delete(
-        `https://localhost:4000/user/signout`,
+        `${process.env.REACT_APP_END_POINT}user/signout`,
         { data: { email } },
         { withCredentials: true }
       )

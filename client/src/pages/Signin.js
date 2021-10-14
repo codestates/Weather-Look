@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { isCloseModal, authSuccess, isLogin } from "../actions/index";
@@ -79,12 +79,12 @@ function Signin() {
       //axios
       axios
         .post(
-          "https://localhost:4000/user/login",
+          `${process.env.REACT_APP_END_POINT}user/login`,
           { email, password },
           { withCredentials: true }
         )
         .then((res) => {
-          console.log("login", res.data.message);
+          //console.log("login", res.data.message);
           if (res.data.message === "ok") {
             dispatch(authSuccess());
             isAuthenticated(state);

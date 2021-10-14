@@ -23,14 +23,14 @@ export const WeatherHolder = styled.div`
 const WeatherInfo = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.userReducer.weatherOk);
-  console.log("winfo---", state);
+  //console.log("winfo---", state);
 
   const searchLocal = "seoul";
 
   useEffect(() => {
     dispatch(weatherSuccess({ searchLocal }));
   }, []);
-  console.log("data---", state.weatherOk);
+  //console.log("data---", state.weatherOk);
   return (
     <WeatherContainer>
       {state ? (
@@ -44,9 +44,7 @@ const WeatherInfo = () => {
 
             <div>
               날씨:
-              {
-                //state.weatherOk.weather[0].main}
-              }
+              {state.weather[0].main}
             </div>
             <div>온도: {state.main.temp.toFixed(1)}°</div>
             <div>최고기온: {state.main.temp_max.toFixed(1)}°</div>

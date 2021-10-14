@@ -104,8 +104,8 @@ function Signup() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(isPassword);
-    console.log(isEmail);
+    //console.log(isPassword);
+    //console.log(isEmail);
   }, [isPassword, isEmail, isCheckPassword, isNickname]);
 
   const handelInputValue = (key) => (e) => {
@@ -118,7 +118,7 @@ function Signup() {
       setErrorMsg("모든 항목은 필수입니다.");
     }
     if (!vaildEmail(userInfo.email)) {
-      console.log(userInfo.email);
+      // console.log(userInfo.email);
       setErrorMsg("이메일 형식이 아닙니다.");
       ////유효성 검사 이메일 형식이 맞는지
     } else {
@@ -129,7 +129,7 @@ function Signup() {
 
       axios
         .post(
-          "https://localhost:4000/user/signup/validEmail",
+          `${process.env.REACT_APP_END_POINT}user/signup/validEmail`,
           { email },
           {
             withCredentials: true,
@@ -145,14 +145,14 @@ function Signup() {
   const checkPassword = () => {
     //2개의 비밀번호가 일치하는지 확인
     const { password, checkPassword } = userInfo;
-    console.log(userInfo);
+    //console.log(userInfo);
     if (!password || !checkPassword) {
       setErrorMsg("비밀번호를 확인해주세요.");
     }
     if (vaildPassword(password)) {
       setIsPassword(true);
       setIsCheckPassword(isMatchPassword(password, checkPassword));
-      console.log(isMatchPassword(password, checkPassword));
+      // console.log(isMatchPassword(password, checkPassword));
     }
   };
 
@@ -162,14 +162,15 @@ function Signup() {
     if (nickname) {
       axios
         .post(
-          "https://localhost:4000/user/signup/checkNickname",
+          `${process.env.REACT_APP_END_POINT}user/signup/checkNickname`,
+
           { nickname },
           {
             withCredentials: true,
           }
         )
         .then((res) => {
-          console.log("nickname", res.data);
+          //console.log("nickname", res.data);
           if (res.data.message === "ok") {
             setNickname(true);
           }
@@ -182,7 +183,7 @@ function Signup() {
   const handleSignup = () => {
     const { email, password, checkPassword, nickname, gender } = userInfo;
     if (!email || !password || !checkPassword || !nickname || !gender) {
-      console.log(email, password, checkPassword, nickname, gender);
+      // console.log(email, password, checkPassword, nickname, gender);
       setErrorMsg("모든 항목은 필수입니다.");
     } else if (
       isEmail &&
@@ -192,10 +193,10 @@ function Signup() {
       gender
     ) {
       //history.push("/");
-      console.log("회원가입완료");
+      //console.log("회원가입완료");
       axios
         .post(
-          "https://localhost:4000/user/signup",
+          `${process.env.REACT_APP_END_POINT}user/signup`,
           { userInfo },
           { withCredentials: true }
         )

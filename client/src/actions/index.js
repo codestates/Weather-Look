@@ -54,7 +54,9 @@ export const isCloseModal = () => {
 }
 export const authSuccess = () => async (dispatch) => {
   const userData = await axios
-    .get("https://localhost:4000/user/auth", { withCredentials: true })
+    .get(`${process.env.REACT_APP_END_POINT}user/auth`, {
+      withCredentials: true,
+    })
     .then((res) => res.data.data.userInfo);
   dispatch({ type: AUTH_SUCCESS, payload: userData });
 
@@ -66,12 +68,12 @@ export const weatherSuccess = (city) => async (dispatch) => {
   //console.log("city--", city);
   const weatherData = await axios
     .post(
-      "https://localhost:4000/weatherapi",
+      `${process.env.REACT_APP_END_POINT}weatherapi`,
       { city: city.searchLocal },
       { withCredentials: true }
     )
     .then((res) => res.data);
-  console.log(weatherData);
+
   dispatch({ type: WEATHER_SUCCESS, payload: weatherData });
 };
 export const weatherFailure = () => {

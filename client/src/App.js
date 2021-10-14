@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Signin from "./pages/Signin";
@@ -10,15 +9,11 @@ import Signup from "./pages/Signup";
 import ChangeCheckPwd from "./pages/ChangeCheckPwd";
 import ChangeUserInfo from "./pages/ChangeUserInfo";
 import styled from "styled-components";
-import boo from "../src/weatherBackground/boo.jpg";
-import { useDispatch, useSelector } from "react-redux";
-import { isLogin, isLogout, isCloseModal } from "../src/actions/index";
-import axios from "axios";
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  //background-image: url(${boo});
+
   background-color: black;
   background-size: cover;
   width: 100vw;
@@ -28,7 +23,6 @@ export const Container = styled.div`
 `;
 
 function App() {
-  const dispatch = useDispatch();
   //const state = useSelector((state) => state.userReducer);
 
   //console.log("app user", state);
@@ -38,6 +32,7 @@ function App() {
   /*useEffect(() => {
     isAuthenticated();
   }, []);*/
+  // console.log("env--", process.env.REACT_APP_END_POINT);
   return (
     <div>
       <Container resizeMode="stretch" className="app">

@@ -16,7 +16,7 @@ export const Title = styled.h1`
 const TodayWeather = (props) => {
   const state = useSelector((state) => state.userReducer.weatherOk);
   const { temp } = state.main || 20;
-  console.log("today-------", temp);
+  //  console.log("today-------", temp);
   const temp8 = RopaState.clothes8;
   const temp9 = RopaState.clothes9;
   const temp17 = RopaState.clothes17;
