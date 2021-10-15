@@ -94,9 +94,10 @@ const ChangeUserInfo = (props) => {
 
   const [changeNN, setchangeNN] = useState(""); //새로운 닉네임
   //const [errMessage, setErrMessage] = useState(""); //변경 닉네임 중복확인
-
+  const [validNick, setValidNic] = useState(false);
   const [changePWD, setChangePWD] = useState(""); //새로운 비밀번호값
   const [changeNewPWD, setChangeNewPWD] = useState(""); //새로운 비밀번호 확인값넣은거
+  const [validPWD, setValidPWD] = useState(false);
   //const [errMsg, setErrMsg] = useState(""); //새로운 비밀번호 와 비밀번호 일치여부
   //기존비밀번호 확인 요청
   useEffect(() => {}, [setErrorMsg]);
@@ -114,6 +115,7 @@ const ChangeUserInfo = (props) => {
         // console.log("hy", res.data);
         if (res.data.message === "ok") {
           setErrorMsg("사용 가능한 닉네임입니다.");
+          setValidNic(true);
         }
       })
       .catch((err) => {
@@ -132,29 +134,36 @@ const ChangeUserInfo = (props) => {
   };
   const checkPWD = () => {
     //console.log(changePWD, changeNewPWD);
-    if (changePWD !== changeNewPWD) {
+
+    if (changePWD !== changeNewPWD || !changePWD || !changeNewPWD) {
       setErrorMsg("비밀번호가 일치하지 않습니다.");
     } else {
+      setValidPWD(true);
       setErrorMsg("비밀번호 확인완료 ");
     }
   };
   const changeInfoHandler = () => {
-    axios
-      .patch(
-        `${process.env.REACT_APP_END_POINT}user/inform`,
-        {
-          email,
-          nickname: changeNN,
-          password: changePWD,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        if (res) {
-          dispatch(authSuccess());
-          alert("변경 완료");
-        }
-      });
+    if (validPWD || validNick) {
+      axios
+        .patch(
+          `${process.env.REACT_APP_END_POINT}user/inform`,
+          {
+            email,
+            nickname: changeNN,
+            password: changePWD,
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          if (res) {
+            dispatch(authSuccess());
+            alert("변경 완료");
+            setValidPWD(false);
+          }
+        });
+    } else {
+      setErrorMsg("비밀번호를 확인해주세요.");
+    }
   };
   const signoutHandler = () => {
     axios

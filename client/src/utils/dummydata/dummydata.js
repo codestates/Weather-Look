@@ -1,6 +1,10 @@
 export const RopaState = {
   clothes8: [
     {
+      id: 10,
+      img: "../images/8/겨울모자.jpeg",
+    },
+    {
       id: 0,
       img: "../images/8/롱패딩.jpeg",
     },
@@ -43,6 +47,10 @@ export const RopaState = {
   ],
   clothes9: [
     {
+      id: 10,
+      img: "../images/8/우산.jpeg",
+    },
+    {
       id: 0,
       img: "../images/8/니트.jpeg",
     },
@@ -84,6 +92,10 @@ export const RopaState = {
     },
   ],
   clothes17: [
+    {
+      id: 10,
+      img: "../images/8/우산.jpeg",
+    },
     {
       id: 0,
       img: "../images/17/슬리브4.jpeg",
@@ -128,12 +140,16 @@ export const RopaState = {
   ],
   clothes23: [
     {
+      id: 10,
+      img: "../images/8/우산.jpeg",
+    },
+    {
       id: 0,
       img: "../images/23/모자1.jpeg",
     },
     {
       id: 1,
-      img: "../images/23/반바지1.jpeg",
+      img: "../images/23/반팔3.jpeg",
     },
     {
       id: 2,
@@ -141,19 +157,19 @@ export const RopaState = {
     },
     {
       id: 3,
-      img: "../images/23/반바지3.jpeg",
-    },
-    {
-      id: 4,
       img: "../images/23/반판2.jpeg",
     },
     {
-      id: 5,
+      id: 4,
       img: "../images/23/반팔.jpeg",
     },
     {
+      id: 5,
+      img: "../images/23/반바지3.jpeg",
+    },
+    {
       id: 6,
-      img: "../images/23/반팔3.jpeg",
+      img: "../images/23/반바지1.jpeg",
     },
     {
       id: 7,

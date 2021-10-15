@@ -51,6 +51,7 @@ export const Button = styled.button`
   &:hover {
     background-color: #ff9e0f;
     color: white;
+    cursor: pointer;
   }
 `;
 const WeatherSearch = () => {
