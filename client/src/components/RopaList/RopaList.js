@@ -35,7 +35,7 @@ export const Slides = styled.ul`
   position: absolute;
   left: 0;
   top: 0;
-  width: 2640px;
+  width: 2900px;
   margin: 0;
 `;
 
@@ -58,6 +58,7 @@ export const Control = styled.div`
     transition: all 0.3s ease-in-out;
     background-color: coral;
     color: #fff;
+    cursor: pointer;
   }
 `;
 const TOTAL_SLIDES = 7;

@@ -23,6 +23,7 @@ export const Container = styled.div`
 `;
 
 function App() {
+  //console.log(`${process.env.REACT_APP_END_POINT}user/signup/login`);
   //const state = useSelector((state) => state.userReducer);
 
   //console.log("app user", state);

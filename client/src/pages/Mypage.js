@@ -44,7 +44,7 @@ export const FormDiv = styled.div`
   font-weight: bold;
   //border: 1px solid;
   width: 100px;
-  color
+  //  color
 `;
 export const Info = styled.div`
   border-bottom: 1px solid;
@@ -52,7 +52,14 @@ export const Info = styled.div`
   font-size: 20px;
   margin-bottom: 30px;
 `;
-
+export const User = styled.div`
+  font-size: 23px;
+  font-weight: 500;
+  .span {
+    font-size: 30px;
+    color: #ff9e0f;
+  }
+`;
 export const Button = styled.button`
   border: transparent;
   padding: 10px 30px;
@@ -83,13 +90,16 @@ const Mypage = (props) => {
         <Header>회원정보수정</Header>
         <Form>
           <MypageHolder>
-            <div>안녕하세요? {state.success.nickname}님!</div>
+            <User>
+              안녕하세요? <span className="span">{state.success.nickname}</span>
+              님!
+            </User>
             <FormHolder>
-              <FormDiv>email</FormDiv>
+              <FormDiv>Email</FormDiv>
               <Info>{state.success.email}</Info>
-              <FormDiv>nickname</FormDiv>
+              <FormDiv>Nickname</FormDiv>
               <Info>{state.success.nickname}</Info>
-              <FormDiv>gender</FormDiv>
+              <FormDiv>Gender</FormDiv>
               <Info>{state.success.gender}</Info>
             </FormHolder>
             <Button>
